@@ -1,29 +1,26 @@
-import axios, {AxiosInstance} from "axios";
-import {FetcherI} from "../api";
-
+import axios, { AxiosInstance } from 'axios';
+import { FetcherI } from './api';
 
 const headers: Readonly<Record<string, string | boolean>> = {
-  Accept: "application/json",
-  "Content-Type": "application/json; charset=utf-8",
-  "Access-Control-Allow-Credentials": true,
-  "X-Requested-With": "XMLHttpRequest",
+  Accept: 'application/json',
+  'Content-Type': 'application/json; charset=utf-8',
+  'Access-Control-Allow-Credentials': true,
+  'X-Requested-With': 'XMLHttpRequest',
 };
 
-
-
 export class Axios implements FetcherI {
-  private static instance: Axios
+  private static instance: Axios;
 
   private get axiosInstance(): AxiosInstance {
-    return this.axiosInitInstance(this.baseURL)
+    return this.axiosInitInstance(this.baseURL);
   }
 
   constructor(public baseURL: string) {
     if (Axios.instance) {
-      return Axios.instance
+      return Axios.instance;
     } else {
-      Axios.instance = this
-      this.axiosInitInstance(baseURL)
+      Axios.instance = this;
+      this.axiosInitInstance(baseURL);
     }
   }
 
@@ -32,11 +29,10 @@ export class Axios implements FetcherI {
       baseURL,
       headers,
       withCredentials: false,
-    })
+    });
   }
 
   get(url: string) {
-    return this.axiosInstance.get(url)
+    return this.axiosInstance.get(url);
   }
-
 }

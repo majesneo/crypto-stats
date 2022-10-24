@@ -20,5 +20,13 @@
     "react"
   ],
   "rules": {
+  },
+  "settings": {
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
   }
 }

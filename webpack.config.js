@@ -28,6 +28,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    alias: {
+      client: path.resolve(__dirname, 'src')
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
