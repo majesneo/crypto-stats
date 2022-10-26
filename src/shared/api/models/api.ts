@@ -1,11 +1,12 @@
 export interface FetcherI {
-  get(url: string): Promise<any>;
+  get<T>(url: string): Promise<T>;
 }
 
 export class Fetcher {
-  constructor(public instance: FetcherI) {}
+  constructor(public instance: FetcherI) {
+  }
 
-  get(url: string): Promise<any> {
+  get<T>(url: string): Promise<T> {
     return this.instance.get(url);
   }
 }

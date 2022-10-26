@@ -1,14 +1,13 @@
 import styled, { css } from 'styled-components';
+
+import { ButtonProps } from './Button';
 import {
-  COLORS,
-  DISABLED_OPACITY,
+  COLORS, DISABLED_OPACITY,
   PRIMARY_COLOR,
   PRIMARY_TEXT_COLOR,
   SECONDARY_COLOR,
-  SECONDARY_TEXT_COLOR,
-  SIZE,
-} from '@/shared/constants/style';
-import { ButtonProps } from './Button';
+  SECONDARY_TEXT_COLOR, SIZE
+} from "../../../constants/style";
 
 const colorStyles = (p: ButtonProps) => {
   let color = SECONDARY_TEXT_COLOR,
@@ -34,6 +33,7 @@ export const StyledButton = styled.button<ButtonProps>`
   ${colorStyles};
   cursor: pointer;
   display: inline-block;
+  width: ${(p)=>p.isFullWidth && '100%'};
   font-weight: 400;
   text-align: center;
   vertical-align: middle;
@@ -68,3 +68,5 @@ export const StyledButton = styled.button<ButtonProps>`
     opacity: ${DISABLED_OPACITY};
   }
 `;
+
+

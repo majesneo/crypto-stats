@@ -13,3 +13,12 @@ export enum SIZE {
   SMALL = 'SMALL',
   LARGE = 'LARGE',
 }
+
+export enum SPACING_MAP {
+  NONE= '0px',
+  XS= '0.125rem',
+  SM= '0.25rem',
+  MD= '0.5rem',
+  LG= '1rem',
+  XL= '2rem',
+};

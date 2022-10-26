@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "*": ["node_modules/*"]
-    },
+    "baseUrl": "src",
     "target": "ESNext",
     "module": "umd",
     "lib": [
@@ -19,7 +15,8 @@
     "strictNullChecks": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["react/next", "react-dom/next"]
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }
