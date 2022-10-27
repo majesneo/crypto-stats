@@ -1,30 +1,35 @@
-import React, {FC} from "react";
-import {Container, Photo, Price, Title, Val} from "../style";
-import {COLORS} from "../../../../shared/constants/style";
-import {Button} from "../../../../shared/ui/components/button/Button";
-import {IProduct} from "../../model/constants";
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { Button } from '../../../../shared/ui/components/button/Button';
+import { Photo } from '../../../../shared/ui/components/Photo/Photo';
+import { COLORS } from '../../../../shared/ui/constants/style';
+import { RootState } from '../../../../shared/ui/lib/store/store';
+import { IProduct } from '../../model/constants';
+import { Container, Price, Title, Val } from './style';
 
-interface ProductCard extends Pick<IProduct, 'title' | 'price' | 'images'>{
-  product:IProduct
-}
+export const ProductCard: FC<IProduct> = ({
+  title,
+  price,
+  images,
+  description,
+}) => {
+  const { loading } = useSelector((state: RootState) => state);
 
-export const ProductCard: FC<ProductCard > = ({title, price,images}) => {
-  console.log(title,'title')
-  console.log(price,'price')
   return (
-
     <Container>
-      <Photo alt={'title'}/>
+      <Photo ratio={[1, 1]}>
+        <img src={images && images[0]} alt="product" />
+      </Photo>
       <Title theme={COLORS.PRIMARY}>{title}</Title>
       <Price>
         <Val>
-          <b>{price}</b>
+          <b>{price}$</b>
         </Val>
-        productInstallment
       </Price>
+
       <Button variant={COLORS.PRIMARY} isFullWidth>
         Add to cart
       </Button>
     </Container>
-  )
-}
+  );
+};

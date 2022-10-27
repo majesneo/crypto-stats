@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './App';
-import {store} from "./shared/ui/lib/store/store";
-import {Provider} from "react-redux";
-
+import { store } from './shared/ui/lib/store/store';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');

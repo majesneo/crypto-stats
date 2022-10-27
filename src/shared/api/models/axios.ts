@@ -32,7 +32,7 @@ export class Axios implements FetcherI {
     });
   }
 
-  get<T>(url: string):Promise<T> {
+  get<T>(url: string): Promise<T> {
     return this.axiosInstance.get(url);
   }
 }
