@@ -15,7 +15,7 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   spacing,
   minItemWidth,
 }) => {
-  const { essence } = useSelector((state: RootState) => state);
+  const { essence } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());

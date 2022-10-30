@@ -1,5 +1,7 @@
 import React from 'react';
-import { AuthJWT } from 'features/Authentication/thunk';
+import { useSelector } from 'react-redux';
+import { Login } from '../../../features/Authentication/thunk';
+import { RootState } from '../../../shared/lib/store/store';
 import { AuthForm } from '../../../shared/ui/components/AuthForm/AuthForm';
 import { Button } from '../../../shared/ui/components/button/Button';
 import {
@@ -19,6 +21,8 @@ export interface MenuItemsContainerProps {
 }
 
 export const Menu = () => {
+  const { loading } = useSelector((state: RootState) => state.product);
+
   const login = ({
     username,
     password,
@@ -26,10 +30,7 @@ export const Menu = () => {
     username: string;
     password: string;
   }) => {
-    console.log('login');
-    console.log(username, password);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJzdWIiOjEsImlhdCI6MTY0Nzg3NTY5MywiZXhwIjoxNjQ3ODc5MjkzfQ.yrPEqd3YEgmxwEXq3SFy33bhV2jcIKc8BMGZfwuWyHM'
-    AuthJWT({ fetchData: { username, password }, token })
+    Login({ email: username, password });
   };
 
   return (
@@ -49,6 +50,7 @@ export const Menu = () => {
             <ModalContents>
               <h2>Login</h2>
               <AuthForm
+                status={loading}
                 onSubmit={login}
                 submitButton={<Button variant={COLORS.PRIMARY}>Login</Button>}
               />

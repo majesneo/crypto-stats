@@ -32,8 +32,8 @@ const colorStyles = (p: ButtonProps) => {
       border-color: ${color};
     }
 
-     &:hover {
-      background-color: ${hoverColor}
+    &:hover {
+      background-color: ${hoverColor};
     }
   `;
 };

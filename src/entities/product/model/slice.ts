@@ -27,7 +27,7 @@ export const productSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith(`/fulfilled`),
         (state) => {
-          state.loading = STATUS.IDLE;
+          state.loading = STATUS.FULFILLED;
         }
       )
       .addMatcher(

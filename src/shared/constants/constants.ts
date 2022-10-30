@@ -6,7 +6,7 @@ export enum STATUS {
 }
 
 export interface State<T> {
-  essence: T | T[]
+  essence: T | T[] | null;
   loading: keyof typeof STATUS;
   error: string;
 }

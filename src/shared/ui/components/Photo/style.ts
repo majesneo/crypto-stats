@@ -6,7 +6,7 @@ export const StyledPhoto = styled.div<StyledPhotoProps>`
   --h: ${(props) => (props.ratio ? props.ratio[1] : 1)};
 
   aspect-ratio: var(--w) / var(--h);
-  margin-bottom:5px;
+  margin-bottom: 5px;
   > img {
     width: 100%;
     height: 100%;

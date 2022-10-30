@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthJWT } from 'features/Authentication/thunk';
+import { AuthJWT, Login } from '../../../features/Authentication/thunk';
 import { State, STATUS } from '../../../shared/constants/constants';
 import { IUser } from './constants';
 
+type userState = State<IUser> & { token: string };
 
-const initialState: State<IUser> = {
+const initialState: userState = {
   essence: {},
   loading: STATUS.IDLE,
   error: '',
+  token: '',
 };
 
 export const userSlice = createSlice({
@@ -16,8 +18,11 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(Login.fulfilled, (state, action) => {
+        state.token = action.payload;
+      })
       .addCase(AuthJWT.fulfilled, (state, action) => {
-        state.essence = action.payload
+        state.essence = action.payload;
       })
       .addMatcher(
         (action) => action.type.endsWith(`/loading`),
@@ -28,7 +33,7 @@ export const userSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith(`/fulfilled`),
         (state) => {
-          state.loading = STATUS.IDLE;
+          state.loading = STATUS.FULFILLED;
         }
       )
       .addMatcher(
