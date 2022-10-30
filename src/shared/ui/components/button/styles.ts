@@ -4,6 +4,7 @@ import {
   COLORS,
   DISABLED_OPACITY,
   PRIMARY_COLOR,
+  PRIMARY_DARK_COLOR,
   PRIMARY_TEXT_COLOR,
   SECONDARY_COLOR,
   SECONDARY_TEXT_COLOR,
@@ -13,11 +14,13 @@ import { ButtonProps } from './Button';
 
 const colorStyles = (p: ButtonProps) => {
   let color = SECONDARY_TEXT_COLOR,
-    backgroundColor = SECONDARY_COLOR;
+    backgroundColor = SECONDARY_COLOR,
+    hoverColor = SECONDARY_COLOR;
 
   if (p.variant === COLORS.PRIMARY) {
     color = PRIMARY_TEXT_COLOR;
     backgroundColor = PRIMARY_COLOR;
+    hoverColor = PRIMARY_DARK_COLOR;
   }
 
   return css`
@@ -27,6 +30,10 @@ const colorStyles = (p: ButtonProps) => {
 
     &:focus-visible {
       border-color: ${color};
+    }
+
+     &:hover {
+      background-color: ${hoverColor}
     }
   `;
 };
@@ -41,6 +48,8 @@ export const StyledButton = styled.button<ButtonProps>`
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-out;
   padding: ${(p) => {
     if (p.size === SIZE.LARGE) {
       return '0.5rem 1rem';
@@ -57,8 +66,6 @@ export const StyledButton = styled.button<ButtonProps>`
     }
     return '1rem';
   }};
-  line-height: 1.5;
-  border-radius: 0;
 
   &:focus {
     outline: 0;

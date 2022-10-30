@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { AuthJWT } from 'features/Authentication/thunk';
 import { State, STATUS } from '../../../shared/constants/constants';
-import { IProduct } from './constants';
-import { getProducts } from './thunk';
+import { IUser } from './constants';
 
-const initialState: State<IProduct> = {
-  essence: [],
+
+const initialState: State<IUser> = {
+  essence: {},
   loading: STATUS.IDLE,
   error: '',
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const userSlice = createSlice({
+  name: 'User',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.essence = action.payload.slice(1, 9);
+      .addCase(AuthJWT.fulfilled, (state, action) => {
+        state.essence = action.payload
       })
       .addMatcher(
         (action) => action.type.endsWith(`/loading`),

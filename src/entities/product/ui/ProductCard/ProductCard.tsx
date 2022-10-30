@@ -1,18 +1,19 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../../shared/lib/store/store';
 import { Button } from '../../../../shared/ui/components/button/Button';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS } from '../../../../shared/ui/constants/style';
-import { RootState } from '../../../../shared/ui/lib/store/store';
+import { ModalBackground } from '../../../../widgets/models/Modal/ModalBackground';
+import {
+  Modal,
+  ModalContents,
+  ModalOpenButton,
+} from '../../../../widgets/models/Modal/ModalContext';
 import { IProduct } from '../../model/constants';
 import { Container, Price, Title, Val } from './style';
 
-export const ProductCard: FC<IProduct> = ({
-  title,
-  price,
-  images,
-  description,
-}) => {
+export const ProductCard: FC<IProduct> = ({ title, price, images }) => {
   const { loading } = useSelector((state: RootState) => state);
 
   return (
@@ -26,10 +27,17 @@ export const ProductCard: FC<IProduct> = ({
           <b>{price}$</b>
         </Val>
       </Price>
-
-      <Button variant={COLORS.PRIMARY} isFullWidth>
-        Add to cart
-      </Button>
+      <Modal>
+        <ModalBackground />
+        <ModalContents>
+          <h1>register</h1>
+        </ModalContents>
+        <ModalOpenButton>
+          <Button variant={COLORS.PRIMARY} isFullWidth>
+            Add to cart
+          </Button>
+        </ModalOpenButton>
+      </Modal>
     </Container>
   );
 };

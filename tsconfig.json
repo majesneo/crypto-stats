@@ -16,7 +16,12 @@
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "types": ["react/next", "react-dom/next"]
+    "types": [
+      "react/next",
+      "react-dom/next"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

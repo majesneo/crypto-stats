@@ -1,17 +1,19 @@
 import axios, { AxiosInstance } from 'axios';
 import { FetcherI } from './api';
 
-const headers: Readonly<Record<string, string | boolean>> = {
+const headers: Record<string, string | boolean> = {
   Accept: 'application/json',
   'Content-Type': 'application/json; charset=utf-8',
   'Access-Control-Allow-Credentials': true,
   'X-Requested-With': 'XMLHttpRequest',
 };
 
+
 export class Axios implements FetcherI {
   private static instance: Axios;
+  private headers = headers
 
-  private get axiosInstance(): AxiosInstance {
+  private get axiosInstance (): AxiosInstance {
     return this.axiosInitInstance(this.baseURL);
   }
 
@@ -24,7 +26,7 @@ export class Axios implements FetcherI {
     }
   }
 
-  axiosInitInstance(baseURL: string) {
+  axiosInitInstance (baseURL: string) {
     return axios.create({
       baseURL,
       headers,
@@ -32,7 +34,17 @@ export class Axios implements FetcherI {
     });
   }
 
-  get<T>(url: string): Promise<T> {
+  setToken (token: string) {
+    this.headers['Authorization'] = `Bearer ${token}`
+  }
+
+  get<T> (url: string): Promise<T> {
     return this.axiosInstance.get(url);
+  }
+
+
+  post<T> (url: string, body: any, token: string): Promise<T> {
+    this.setToken(token)
+    return this.axiosInstance.post(url, body, this.headers);
   }
 }

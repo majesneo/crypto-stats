@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: './src/index.tsx',
@@ -24,18 +24,32 @@ module.exports = {
           },
         },
       },
+       {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+      test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+          use: {
+            loader: 'url-loader',
+            options: {
+              limit: 50000,
+              mimetype: 'application/font-woff',
+              // Output below fonts directory
+              name: './fonts/[name].[ext]',
+            },
+          },
+        }
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
-    alias: {
-      client: path.resolve(__dirname, 'src')
-    },
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html"),
+      template: path.resolve(__dirname, "src", "index.html")
     }),
+    new MiniCssExtractPlugin()
   ],
 }
 
