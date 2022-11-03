@@ -6,14 +6,14 @@ import { IUser } from './constants';
 type userState = State<IUser> & { token: string };
 
 const initialState: userState = {
-  essence: {},
+  essence: null,
   loading: STATUS.IDLE,
   error: '',
   token: '',
 };
 
 export const userSlice = createSlice({
-  name: 'User',
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -25,7 +25,7 @@ export const userSlice = createSlice({
         state.essence = action.payload;
       })
       .addMatcher(
-        (action) => action.type.endsWith(`/loading`),
+        (action) => action.type.endsWith(`/pending`),
         (state) => {
           state.loading = STATUS.LOADING;
         }
@@ -33,7 +33,7 @@ export const userSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith(`/fulfilled`),
         (state) => {
-          state.loading = STATUS.FULFILLED;
+          state.loading = STATUS.IDLE;
         }
       )
       .addMatcher(

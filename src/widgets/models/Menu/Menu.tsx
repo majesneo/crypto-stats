@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Login } from '../../../features/Authentication/thunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login } from '../../../features/Authentication/thunk'
 import { RootState } from '../../../shared/lib/store/store';
 import { AuthForm } from '../../../shared/ui/components/AuthForm/AuthForm';
 import { Button } from '../../../shared/ui/components/button/Button';
@@ -22,7 +22,7 @@ export interface MenuItemsContainerProps {
 
 export const Menu = () => {
   const { loading } = useSelector((state: RootState) => state.product);
-
+  const dispatch = useDispatch()
   const login = ({
     username,
     password,
@@ -30,8 +30,10 @@ export const Menu = () => {
     username: string;
     password: string;
   }) => {
-    Login({ email: username, password });
+    dispatch(Login({ email: username, password }))
   };
+
+
 
   return (
     <MenuContainer>

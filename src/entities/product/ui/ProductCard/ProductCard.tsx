@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { STATUS } from '../../../../shared/constants/constants';
 import { RootState } from '../../../../shared/lib/store/store';
 import { Button } from '../../../../shared/ui/components/button/Button';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
+import { Spinner } from '../../../../shared/ui/components/Spinner/Spinner';
 import { COLORS } from '../../../../shared/ui/constants/style';
 import { ModalBackground } from '../../../../widgets/models/Modal/ModalBackground';
 import {
@@ -14,7 +16,12 @@ import { IProduct } from '../../model/constants';
 import { Container, Price, Title, Val } from './style';
 
 export const ProductCard: FC<IProduct> = ({ title, price, images }) => {
-  const { loading } = useSelector((state: RootState) => state);
+  const { loading } = useSelector((state: RootState) => state.product);
+
+
+  if (loading === STATUS.LOADING) {
+    return <Spinner />
+  }
 
   return (
     <Container>

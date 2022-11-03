@@ -18,7 +18,7 @@ export interface AuthFormI {
 }
 
 export const AuthForm: FC<AuthFormI> = ({ onSubmit, submitButton, status }) => {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit (event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const { username, password } = event.target.elements;
 
@@ -38,12 +38,14 @@ export const AuthForm: FC<AuthFormI> = ({ onSubmit, submitButton, status }) => {
         <Label htmlFor={'password'}>Password</Label>
         <Input id={'password'} />
       </FieldGroup>
-      {React.cloneElement(
-        submitButton,
-        { type: 'submit' },
-        submitButton.props.children,
-        status === STATUS.LOADING ? <Spinner /> : null
-      )}
+      <div>
+        {React.cloneElement(
+          submitButton,
+          { type: 'submit' },
+          submitButton.props.children,
+          status === STATUS.LOADING ? <Spinner /> : null,
+        )}
+      </div>
     </StyledForm>
   );
 };

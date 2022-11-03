@@ -4,7 +4,7 @@ import { IProduct } from './constants';
 import { getProducts } from './thunk';
 
 const initialState: State<IProduct> = {
-  essence: [],
+  essence: null,
   loading: STATUS.IDLE,
   error: '',
 };
@@ -19,7 +19,7 @@ export const productSlice = createSlice({
         state.essence = action.payload.slice(1, 9);
       })
       .addMatcher(
-        (action) => action.type.endsWith(`/loading`),
+        (action) => action.type.endsWith(`/pending`),
         (state) => {
           state.loading = STATUS.LOADING;
         }
@@ -27,7 +27,7 @@ export const productSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith(`/fulfilled`),
         (state) => {
-          state.loading = STATUS.FULFILLED;
+          state.loading = STATUS.IDLE;
         }
       )
       .addMatcher(

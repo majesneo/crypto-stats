@@ -12,7 +12,7 @@ export class Axios implements FetcherI {
   private static instance: Axios;
   private headers = headers;
 
-  private get axiosInstance(): AxiosInstance {
+  private get axiosInstance (): AxiosInstance {
     return this.axiosInitInstance(this.baseURL);
   }
 
@@ -25,7 +25,7 @@ export class Axios implements FetcherI {
     }
   }
 
-  axiosInitInstance(baseURL: string) {
+  axiosInitInstance (baseURL: string) {
     return axios.create({
       baseURL,
       headers,
@@ -33,16 +33,16 @@ export class Axios implements FetcherI {
     });
   }
 
-  setToken(token: string) {
+  setToken (token: string) {
     this.headers['Authorization'] = `Bearer ${token}`;
   }
 
-  get<T>(url: string, token?: string): Promise<T> {
+  get<T> (url: string, token?: string): Promise<T> {
     if (token) this.setToken(token);
     return this.axiosInstance.get(url);
   }
 
-  post<T>(url: string, body: T): Promise<T> {
+  post<T> (url: string, body: T): Promise<T> {
     return this.axiosInstance.post(url, body, this.headers);
   }
 }

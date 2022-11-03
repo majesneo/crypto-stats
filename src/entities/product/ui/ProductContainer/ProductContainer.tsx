@@ -15,15 +15,15 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   spacing,
   minItemWidth,
 }) => {
-  const { essence } = useSelector((state: RootState) => state.product);
+  const { essence: products } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
-      {essence.map((product) => (
+      {products?.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
     </StyledGridContainer>
