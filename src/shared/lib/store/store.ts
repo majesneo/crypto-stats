@@ -13,22 +13,18 @@ import storage from 'redux-persist/lib/storage';
 import { productSlice } from '../../../entities/product/model/slice';
 import { userSlice } from '../../../entities/user/model/slice';
 
-const rootReducer = combineReducers({
-  product: productSlice.reducer,
-  user: userSlice.reducer,
-});
+// const rootReducer = combineReducers({
 
-const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer);
+// });
+
+// const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  reducer: {
+    product: productSlice.reducer,
+    user: userSlice.reducer,
+  }
 });
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
