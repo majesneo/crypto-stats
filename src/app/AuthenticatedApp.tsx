@@ -4,9 +4,6 @@ import { ProductContainer } from "../entities/product/ui/ProductContainer/Produc
 import { MenuAuthorized } from "../widgets/models/Menu/MenuAuthorized"
 
 
-
-
-
 export const AuthenticatedApp: FC = () => {
   return (
     <>

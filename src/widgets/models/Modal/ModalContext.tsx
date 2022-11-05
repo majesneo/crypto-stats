@@ -1,18 +1,32 @@
-import React, { cloneElement, ReactNode, useContext } from 'react';
+import React, { cloneElement, ReactNode, useContext, useEffect } from 'react';
 import { createContext, FC, useState } from 'react';
 import { ModalContent } from './ModalContent';
 
 export const ModalContext = createContext({
   isOpen: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setIsOpen: (isOpen: boolean) => {},
+  setIsOpen (isOpen: boolean) { return },
+  useDisableScroll: ({ element, disabled }: { element: HTMLElement, disabled: boolean }) => {
+    useEffect(() => {
+      if (!element) {
+        return
+      }
+
+      element.style.overflowY = disabled ? 'hidden' : 'scroll'
+
+      return () => {
+        element.style.overflowY = 'scroll'
+      }
+    }, [element, disabled])
+  }
 });
 
 export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { useDisableScroll } = useContext(ModalContext);
+
 
   return (
-    <ModalContext.Provider value={{ isOpen, setIsOpen }} {...props}>
+    <ModalContext.Provider value={{ isOpen, setIsOpen, useDisableScroll }} {...props}>
       {children}
     </ModalContext.Provider>
   );
@@ -43,10 +57,11 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
   ...props
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
-
+  const { useDisableScroll } = useContext(ModalContext);
   return (
     <ModalContent
       isOpen={isOpen}
+      useDisableScroll={useDisableScroll}
       closeModal={() => setIsOpen(false)}
       {...props}
     >

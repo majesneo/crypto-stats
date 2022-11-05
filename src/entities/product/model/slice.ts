@@ -3,7 +3,14 @@ import { State, STATUS } from '../../../shared/constants/constants';
 import { IProduct } from './constants';
 import { getProducts } from './thunk';
 
-const initialState: State<IProduct> = {
+
+interface StateProduct<T> {
+  essence: T[] | null;
+  loading: keyof typeof STATUS;
+  error: string;
+}
+
+const initialState: StateProduct<IProduct> = {
   essence: null,
   loading: STATUS.IDLE,
   error: '',
