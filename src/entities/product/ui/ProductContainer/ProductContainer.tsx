@@ -32,9 +32,9 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
     return <Spinner isFullWidth />
   }
 
-
   return (
-    <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
+		<StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
+			{/* You need to utilise ts more */}
       {products?.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
