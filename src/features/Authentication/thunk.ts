@@ -22,7 +22,6 @@ export const Login = createAsyncThunk(
         email,
         password,
       });
-      console.log(access_token, 'access_token');
 
       return access_token;
     } catch (e) {
@@ -32,20 +31,16 @@ export const Login = createAsyncThunk(
   }
 );
 
-interface IAuthJWT {
-  token: string;
-}
 
 export const AuthJWT = createAsyncThunk(
   'AuthJWT',
-  async (token: IAuthJWT, { rejectWithValue }) => {
+  async (token, { rejectWithValue }) => {
     try {
-      console.log('AuthJWT', token);
-
       const { data } = await api.get<AxiosResponse<IUser>>(
         URL_AUTH_CURRENT_SESSION,
         token
       );
+
       return data;
     } catch (e) {
       console.error(e);

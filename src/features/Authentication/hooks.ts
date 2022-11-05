@@ -6,15 +6,12 @@ import { AuthJWT } from './thunk';
 
 export const useAuth = () => {
   const dispatch = useDispatch()
-  const { loading, essence: user, token } = useSelector((state: RootState) => state.user);
 
-  console.log(token, 'token');
+  const { loading, essence: user, token } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     if (token) dispatch(AuthJWT(token))
   }, [token, dispatch]);
 
-  console.log(user, 'user');
-  console.log(loading, 'loading');
   return { user, loading }
 };

@@ -11,9 +11,6 @@ import { UnauthenticatedApp } from './UnauthenticatedApp';
 export const App = () => {
   const { user, loading } = useAuth()
 
-  console.log(user, 'user1');
-  console.log(loading, 'loading1');
-
   if (loading === STATUS.LOADING) {
     return <Spinner isFullWidth />
   }

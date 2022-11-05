@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { FontsStyle } from '../shared/lib/fonts/index';
-import { store } from '../shared/lib/store/store';
+import { persistor, store } from '../shared/lib/store/store';
 import { App } from './App';
 import { AppWrapper } from './style';
 
@@ -14,11 +14,12 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-
-      <FontsStyle />
-      <AppWrapper>
-        <App />
-      </AppWrapper>
+      <PersistGate loading={null} persistor={persistor}>
+        <FontsStyle />
+        <AppWrapper>
+          <App />
+        </AppWrapper>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

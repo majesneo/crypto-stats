@@ -10,6 +10,7 @@ export const StyledModalBackground = styled.div<StyledModalBackgroundI>`
   position: absolute;
   top: 0;
   width: 100%;
+
 `;
 
 export const StyledModalContent = styled.div<StyledModalContentI>`
@@ -25,4 +26,7 @@ export const StyledModalContent = styled.div<StyledModalContentI>`
   flex-direction: column;
   border-radius: 20px;
   align-items: center;
+  body{
+    overflow-y: hidden;
+  }
 `;

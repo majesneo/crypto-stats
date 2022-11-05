@@ -9,17 +9,24 @@ export interface IModalContent {
   isOpen?: boolean;
   children?: ReactNode;
   closeModal: () => void;
+  useDisableScroll: ({ element, disabled }: { element: HTMLElement, disabled: boolean }) => void;
 }
 
 export const ModalContent: FC<IModalContent> = ({
   closeModal,
   children,
   isOpen,
+  useDisableScroll,
 }) => {
+  const useClose = () => {
+    closeModal()
+    useDisableScroll({ element: document.body, disabled: false });
+  }
+
   return (
     <StyledModalContent isOpen={isOpen}>
       {children}
-      <button onClick={() => closeModal()}>Close</button>
+      <button onClick={() => useClose}>Close</button>
     </StyledModalContent>
   );
 };

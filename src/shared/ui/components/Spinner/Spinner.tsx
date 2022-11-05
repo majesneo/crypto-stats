@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { FullPageSpinnerStyle, StyledSpinner } from './style';
 
 export interface ISpinner {
   isFullWidth?: boolean;
+  style?: CSSProperties
 }
 
 export const Spinner: FC<ISpinner> = ({ isFullWidth }) => {

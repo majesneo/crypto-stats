@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../shared/lib/store/store';
+import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
 import {
   JUSTIFY_ALIGN_MAP,
   SPACING_MAP
@@ -14,6 +17,9 @@ export interface MenuItemsContainerProps {
 
 export const MenuAuthorized = () => {
 
+  const { essence: { email, name, avatar } } = useSelector((state: RootState) => state.user)
+  console.log(avatar, 'avatar');
+
   return (
     <MenuContainer>
       <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
@@ -23,7 +29,8 @@ export const MenuAuthorized = () => {
           <span>Features</span>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
-          <div>user name</div>
+          <Avatar src={avatar} />
+          <div>{name}</div>
         </FlexContainer>
       </FlexContainer>
     </MenuContainer>

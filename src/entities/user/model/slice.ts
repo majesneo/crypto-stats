@@ -3,9 +3,16 @@ import { AuthJWT, Login } from '../../../features/Authentication/thunk';
 import { State, STATUS } from '../../../shared/constants/constants';
 import { IUser } from './constants';
 
-type userState = State<IUser> & { token: string };
 
-const initialState: userState = {
+
+interface userState<T> {
+  essence: T | null
+  loading: keyof typeof STATUS;
+  error: string;
+  token: string;
+}
+
+const initialState: userState<IUser> = {
   essence: null,
   loading: STATUS.IDLE,
   error: '',
@@ -23,6 +30,7 @@ export const userSlice = createSlice({
       })
       .addCase(AuthJWT.fulfilled, (state, action) => {
         state.essence = action.payload;
+        state.error = '';
       })
       .addMatcher(
         (action) => action.type.endsWith(`/pending`),
@@ -41,6 +49,7 @@ export const userSlice = createSlice({
         (state, action) => {
           state.loading = STATUS.IDLE;
           state.error = action.payload || action.error.message;
+          state.token = ''
         }
       );
   },
