@@ -10,7 +10,6 @@ export const StyledModalBackground = styled.div<StyledModalBackgroundI>`
   position: absolute;
   top: 0;
   width: 100%;
-
 `;
 
 export const StyledModalContent = styled.div<StyledModalContentI>`
@@ -22,11 +21,18 @@ export const StyledModalContent = styled.div<StyledModalContentI>`
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  padding: 2rem;
+  padding: 2.5rem;
   flex-direction: column;
   border-radius: 20px;
   align-items: center;
-  body{
+  body {
     overflow-y: hidden;
   }
 `;
+
+export const StyledModalWrapper = styled.div`
+position: relative;
+gap: 2rem;
+display: flex;
+flex-direction: column;
+`

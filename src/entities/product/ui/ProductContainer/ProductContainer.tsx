@@ -17,8 +17,9 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   spacing,
   minItemWidth,
 }) => {
-
-  const { essence: products, loading } = useSelector((state: RootState) => state.product);
+  const { essence: products, loading } = useSelector(
+    (state: RootState) => state.product
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,14 +28,12 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
     }
   }, [products, dispatch]);
 
-
   if (loading === STATUS.LOADING) {
-    return <Spinner isFullWidth />
+    return <Spinner isFullWidth />;
   }
 
   return (
-		<StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
-			{/* You need to utilise ts more */}
+    <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
       {products?.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}

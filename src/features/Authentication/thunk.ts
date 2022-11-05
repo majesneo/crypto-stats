@@ -15,7 +15,6 @@ export const Login = createAsyncThunk(
   'Login',
   async ({ email, password }: ILogin, { rejectWithValue }) => {
     try {
-
       const {
         data: { access_token },
       } = await api.post<AxiosResponse<{ access_token: string }>>(URL_AUTH, {
@@ -31,7 +30,6 @@ export const Login = createAsyncThunk(
   }
 );
 
-
 export const AuthJWT = createAsyncThunk(
   'AuthJWT',
   async (token, { rejectWithValue }) => {
@@ -45,6 +43,23 @@ export const AuthJWT = createAsyncThunk(
     } catch (e) {
       console.error(e);
       return rejectWithValue('Fail AuthJWT');
+    }
+  }
+);
+
+type signUpData = Pick<IUser, 'email' | 'password' | 'name'>;
+
+export const SignUp = createAsyncThunk(
+  'SignUp',
+  async (signUpData: signUpData, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post<AxiosResponse>(URL_AUTH, signUpData);
+      console.log(data, 'data signUpData');
+
+      return data;
+    } catch (e) {
+      console.error(e);
+      return rejectWithValue('Fail SignUp');
     }
   }
 );

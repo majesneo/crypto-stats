@@ -3,7 +3,6 @@ import { State, STATUS } from '../../../shared/constants/constants';
 import { IProduct } from './constants';
 import { getProducts } from './thunk';
 
-
 interface StateProduct<T> {
   essence: T[] | null;
   loading: keyof typeof STATUS;

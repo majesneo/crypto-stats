@@ -1,49 +1,67 @@
 import React, { FC, FormEvent } from 'react';
 import { STATUS } from '../../../../shared/constants/constants';
-import { Input } from '../input/Input';
-import { Label } from '../label/Label';
+import { Field } from '../Field/FieldGroup';
 import { Spinner } from '../Spinner/Spinner';
-import { FieldGroup, StyledForm } from './style';
+import { StyledForm } from './style';
 
 export interface AuthFormI {
   onSubmit: ({
-    username,
+    name,
     password,
+    email,
   }: {
-    username: string;
+    name?: string | undefined;
     password: string;
+    email?: string | undefined;
   }) => void;
   submitButton: React.ReactElement;
   status: keyof typeof STATUS;
+  isSinUpForm?: boolean;
 }
 
-export const AuthForm: FC<AuthFormI> = ({ onSubmit, submitButton, status }) => {
+export const AuthForm: FC<AuthFormI> = ({
+  onSubmit,
+  submitButton,
+  status,
+  isSinUpForm,
+}) => {
   function handleSubmit (event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const { username, password } = event.target.elements;
+    const { name, password, email } = event.target.elements;
+
+    console.dir(event.target, 'event.target');
+    console.dir(event.target.value, 'event.target.value');
+    console.dir(event.target.elements, 'event.target.elements');
 
     onSubmit({
-      username: username.value,
+      name: name.value,
       password: password.value,
+      email: email.value,
     });
   }
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <FieldGroup>
-        <Label htmlFor={'username'}>Username</Label>
-        <Input id={'username'} />
-      </FieldGroup>
-      <FieldGroup>
-        <Label htmlFor={'password'}>Password</Label>
-        <Input id={'password'} />
-      </FieldGroup>
-      <div>
+      {isSinUpForm && (
+        <Field>
+          <Field.Label >Name</Field.Label>
+          <Field.Input nativeID={'name'} />
+        </Field>
+      )}
+      <Field>
+        <Field.Label>Email</Field.Label>
+        <Field.Input nativeID={'email'} />
+      </Field>
+      <Field>
+        <Field.Label>Password</Field.Label>
+        <Field.Input nativeID={'password'} type="password" />
+      </Field>
+      <div style={{ textAlign: 'center' }}>
         {React.cloneElement(
           submitButton,
           { type: 'submit' },
           submitButton.props.children,
-          status === STATUS.LOADING ? <Spinner /> : null,
+          status === STATUS.LOADING ? <Spinner /> : null
         )}
       </div>
     </StyledForm>

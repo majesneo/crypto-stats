@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
+import { CartIcon } from '../../../shared/ui/components/Icons/CartIcon/Index';
 import {
   JUSTIFY_ALIGN_MAP,
-  SPACING_MAP
+  SPACING_MAP,
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
@@ -16,8 +17,9 @@ export interface MenuItemsContainerProps {
 }
 
 export const MenuAuthorized = () => {
-
-  const { essence: { email, name, avatar } } = useSelector((state: RootState) => state.user)
+  const {
+    essence: { email, name, avatar },
+  } = useSelector((state: RootState) => state.user);
   console.log(avatar, 'avatar');
 
   return (
@@ -26,9 +28,10 @@ export const MenuAuthorized = () => {
         <div>LOGO</div>
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <span>Products</span>
-          <span>Features</span>
+          <span>Category</span>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
+          <CartIcon />
           <Avatar src={avatar} />
           <div>{name}</div>
         </FlexContainer>

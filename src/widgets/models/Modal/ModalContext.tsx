@@ -4,29 +4,39 @@ import { ModalContent } from './ModalContent';
 
 export const ModalContext = createContext({
   isOpen: false,
-  setIsOpen (isOpen: boolean) { return },
-  useDisableScroll: ({ element, disabled }: { element: HTMLElement, disabled: boolean }) => {
+  setIsOpen(isOpen: boolean) {
+    return;
+  },
+  useDisableScroll: ({
+    element,
+    disabled,
+  }: {
+    element: HTMLElement;
+    disabled: boolean;
+  }) => {
     useEffect(() => {
       if (!element) {
-        return
+        return;
       }
 
-      element.style.overflowY = disabled ? 'hidden' : 'scroll'
+      element.style.overflowY = disabled ? 'hidden' : 'scroll';
 
       return () => {
-        element.style.overflowY = 'scroll'
-      }
-    }, [element, disabled])
-  }
+        element.style.overflowY = 'scroll';
+      };
+    }, [element, disabled]);
+  },
 });
 
 export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { useDisableScroll } = useContext(ModalContext);
 
-
   return (
-    <ModalContext.Provider value={{ isOpen, setIsOpen, useDisableScroll }} {...props}>
+    <ModalContext.Provider
+      value={{ isOpen, setIsOpen, useDisableScroll }}
+      {...props}
+    >
       {children}
     </ModalContext.Provider>
   );

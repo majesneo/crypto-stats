@@ -3,7 +3,7 @@ import { FullPageSpinnerStyle, StyledSpinner } from './style';
 
 export interface ISpinner {
   isFullWidth?: boolean;
-  style?: CSSProperties
+  style?: CSSProperties;
 }
 
 export const Spinner: FC<ISpinner> = ({ isFullWidth }) => {

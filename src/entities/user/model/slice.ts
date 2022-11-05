@@ -3,10 +3,8 @@ import { AuthJWT, Login } from '../../../features/Authentication/thunk';
 import { State, STATUS } from '../../../shared/constants/constants';
 import { IUser } from './constants';
 
-
-
 interface userState<T> {
-  essence: T | null
+  essence: T | null;
   loading: keyof typeof STATUS;
   error: string;
   token: string;
@@ -49,7 +47,7 @@ export const userSlice = createSlice({
         (state, action) => {
           state.loading = STATUS.IDLE;
           state.error = action.payload || action.error.message;
-          state.token = ''
+          state.token = '';
         }
       );
   },

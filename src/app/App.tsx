@@ -7,13 +7,12 @@ import { Spinner } from '../shared/ui/components/Spinner/Spinner';
 import { AuthenticatedApp } from './AuthenticatedApp';
 import { UnauthenticatedApp } from './UnauthenticatedApp';
 
-
 export const App = () => {
-  const { user, loading } = useAuth()
+  const { user, loading } = useAuth();
 
   if (loading === STATUS.LOADING) {
-    return <Spinner isFullWidth />
+    return <Spinner isFullWidth />;
   }
 
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />
+  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 };
