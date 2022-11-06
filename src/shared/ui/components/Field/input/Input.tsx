@@ -4,7 +4,7 @@ import { StyledInput } from './style';
 
 
 
-export const Input: FC<{ nativeID: string } & React.ComponentPropsWithoutRef<'input'>> = forwardRef<
+export const Input: FC<React.ComponentPropsWithoutRef<'input'>> = forwardRef<
   HTMLInputElement & React.ComponentPropsWithoutRef<'input'>
 >((props, ref) => {
   const id = useContext(FieldContext);

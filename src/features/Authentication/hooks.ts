@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Logout } from '../../entities/user/model/actions';
+
 import { RootState } from '../../shared/lib/store/store';
 import { AuthJWT } from './thunk';
 

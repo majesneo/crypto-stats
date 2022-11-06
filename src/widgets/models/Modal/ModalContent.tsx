@@ -1,5 +1,6 @@
-import React, { FC, ReactNode } from 'react';
-import { CloseIcon } from '../../../shared/ui/components/Icons/CloseIcon/Index';
+import React, { FC, ReactNode, useEffect } from 'react';
+import { useDisableScroll } from '../../../shared/hooks/useDisableScroll';
+import { CloseModal } from './CloseModal';
 import { StyledModalContent, StyledModalWrapper } from './style';
 
 export interface StyledModalContentI {
@@ -10,30 +11,36 @@ export interface IModalContent {
   isOpen?: boolean;
   children?: ReactNode;
   closeModal: () => void;
-  useDisableScroll: ({
-    element,
-    disabled,
-  }: {
-    element: HTMLElement;
-    disabled: boolean;
-  }) => void;
 }
 
 export const ModalContent: FC<IModalContent> = ({
   closeModal,
   children,
   isOpen,
-  useDisableScroll,
 }) => {
   const useClose = () => {
     closeModal();
-    useDisableScroll({ element: document.body, disabled: false });
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    console.log('hidden');
+
+    document.body.style.overflowY = 'hidden'
+
+    return () => {
+      console.log('unmounte');
+
+      document.body.style.overflowY = 'scroll';
+    };
+  }, [isOpen]);
 
   return (
     <StyledModalContent isOpen={isOpen}>
       <StyledModalWrapper>
-        <CloseIcon onClick={() => useClose} />
+        <CloseModal onClick={useClose} />
         {children}
       </StyledModalWrapper>
     </StyledModalContent>

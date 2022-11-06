@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC, FormEvent, useRef } from 'react';
 import { STATUS } from '../../../../shared/constants/constants';
 import { Field } from '../Field/FieldGroup';
 import { Spinner } from '../Spinner/Spinner';
@@ -25,18 +25,17 @@ export const AuthForm: FC<AuthFormI> = ({
   status,
   isSinUpForm,
 }) => {
+
+  const inputName = useRef<HTMLInputElement | null>(null)
+  const inputPassword = useRef<HTMLInputElement>()
+  const inputEmail = useRef<HTMLInputElement | null>(null)
   function handleSubmit (event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const { name, password, email } = event.target.elements;
-
-    console.dir(event.target, 'event.target');
-    console.dir(event.target.value, 'event.target.value');
-    console.dir(event.target.elements, 'event.target.elements');
 
     onSubmit({
-      name: name.value,
-      password: password.value,
-      email: email.value,
+      name: inputName?.current?.value,
+      password: inputPassword.current ? inputPassword.current.value : '',
+      email: inputEmail?.current?.value,
     });
   }
 
@@ -44,17 +43,17 @@ export const AuthForm: FC<AuthFormI> = ({
     <StyledForm onSubmit={handleSubmit}>
       {isSinUpForm && (
         <Field>
-          <Field.Label >Name</Field.Label>
-          <Field.Input nativeID={'name'} />
+          <Field.Label>Name</Field.Label>
+          <Field.Input ref={inputName} />
         </Field>
       )}
       <Field>
         <Field.Label>Email</Field.Label>
-        <Field.Input nativeID={'email'} />
+        <Field.Input ref={inputEmail} />
       </Field>
       <Field>
         <Field.Label>Password</Field.Label>
-        <Field.Input nativeID={'password'} type="password" />
+        <Field.Input ref={inputPassword} type="password" />
       </Field>
       <div style={{ textAlign: 'center' }}>
         {React.cloneElement(

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthJWT, Login } from '../../../features/Authentication/thunk';
 import { State, STATUS } from '../../../shared/constants/constants';
+import { Logout } from './actions';
 import { IUser } from './constants';
 
 interface userState<T> {
@@ -20,7 +21,15 @@ const initialState: userState<IUser> = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    Logout: (state: userState<IUser>, action) => {
+      console.log(action, 'action');
+      console.log('Logout');
+
+      state.essence = null
+      state.token = ''
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(Login.fulfilled, (state, action) => {
@@ -29,6 +38,10 @@ export const userSlice = createSlice({
       .addCase(AuthJWT.fulfilled, (state, action) => {
         state.essence = action.payload;
         state.error = '';
+      })
+      .addCase(AuthJWT.rejected, (state, action) => {
+        state.essence = null
+        state.token = ''
       })
       .addMatcher(
         (action) => action.type.endsWith(`/pending`),
@@ -47,7 +60,6 @@ export const userSlice = createSlice({
         (state, action) => {
           state.loading = STATUS.IDLE;
           state.error = action.payload || action.error.message;
-          state.token = '';
         }
       );
   },

@@ -1,13 +1,11 @@
 import React, { FC } from 'react';
-import { useModalContext } from './ModalContext';
 import { StyledModalBackground } from './style';
 
 export interface StyledModalBackgroundI {
   isOpen: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>
 }
 
-export const ModalBackground: FC = () => {
-  const { isOpen } = useModalContext();
-
-  return <StyledModalBackground isOpen={isOpen} />;
+export const ModalBackground: FC<StyledModalBackgroundI> = ({ ...props }) => {
+  return <StyledModalBackground {...props} />;
 };

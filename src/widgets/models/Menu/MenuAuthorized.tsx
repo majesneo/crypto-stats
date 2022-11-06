@@ -1,10 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Logout } from '../../../entities/user/model/actions';
 import { RootState } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
+import { Button } from '../../../shared/ui/components/button/Button';
 import { CartIcon } from '../../../shared/ui/components/Icons/CartIcon/Index';
 import {
+  COLORS,
   JUSTIFY_ALIGN_MAP,
+  SIZE,
   SPACING_MAP,
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
@@ -18,9 +22,13 @@ export interface MenuItemsContainerProps {
 
 export const MenuAuthorized = () => {
   const {
-    essence: { email, name, avatar },
+    essence: { name, avatar },
   } = useSelector((state: RootState) => state.user);
-  console.log(avatar, 'avatar');
+
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(Logout())
+  }
 
   return (
     <MenuContainer>
@@ -29,11 +37,12 @@ export const MenuAuthorized = () => {
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <span>Products</span>
           <span>Category</span>
+          <CartIcon />
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
-          <CartIcon />
           <Avatar src={avatar} />
           <div>{name}</div>
+          <Button onClick={logout} variant={COLORS.SECONDARY} size={SIZE.SMALL} >Logout</Button>
         </FlexContainer>
       </FlexContainer>
     </MenuContainer>

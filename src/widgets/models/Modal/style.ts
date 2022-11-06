@@ -5,11 +5,11 @@ import { StyledModalContentI } from './ModalContent';
 export const StyledModalBackground = styled.div<StyledModalBackgroundI>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   background-color: rgb(3 8 13 / 60%);
-  height: 100%;
+  height: 100vh;
   left: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
 `;
 
 export const StyledModalContent = styled.div<StyledModalContentI>`
@@ -17,7 +17,7 @@ export const StyledModalContent = styled.div<StyledModalContentI>`
   width: fit-content;
   height: fit-content;
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
@@ -25,9 +25,6 @@ export const StyledModalContent = styled.div<StyledModalContentI>`
   flex-direction: column;
   border-radius: 20px;
   align-items: center;
-  body {
-    overflow-y: hidden;
-  }
 `;
 
 export const StyledModalWrapper = styled.div`

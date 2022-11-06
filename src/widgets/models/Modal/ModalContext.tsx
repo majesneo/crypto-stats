@@ -1,40 +1,21 @@
 import React, { cloneElement, ReactNode, useContext, useEffect } from 'react';
 import { createContext, FC, useState } from 'react';
+import { ModalBackground } from './ModalBackground';
 import { ModalContent } from './ModalContent';
 
 export const ModalContext = createContext({
   isOpen: false,
-  setIsOpen(isOpen: boolean) {
+  setIsOpen (isOpen: boolean) {
     return;
-  },
-  useDisableScroll: ({
-    element,
-    disabled,
-  }: {
-    element: HTMLElement;
-    disabled: boolean;
-  }) => {
-    useEffect(() => {
-      if (!element) {
-        return;
-      }
-
-      element.style.overflowY = disabled ? 'hidden' : 'scroll';
-
-      return () => {
-        element.style.overflowY = 'scroll';
-      };
-    }, [element, disabled]);
   },
 });
 
 export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { useDisableScroll } = useContext(ModalContext);
 
   return (
     <ModalContext.Provider
-      value={{ isOpen, setIsOpen, useDisableScroll }}
+      value={{ isOpen, setIsOpen }}
       {...props}
     >
       {children}
@@ -67,16 +48,20 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
   ...props
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
-  const { useDisableScroll } = useContext(ModalContext);
+
+
   return (
-    <ModalContent
-      isOpen={isOpen}
-      useDisableScroll={useDisableScroll}
-      closeModal={() => setIsOpen(false)}
-      {...props}
-    >
-      {children}
-    </ModalContent>
+    <>
+      <ModalBackground isOpen={isOpen} onClick={() => setIsOpen(false)} />
+      <ModalContent
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        {...props}
+      >
+
+        {children}
+      </ModalContent>
+    </>
   );
 };
 

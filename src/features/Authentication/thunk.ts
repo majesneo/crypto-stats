@@ -34,6 +34,8 @@ export const AuthJWT = createAsyncThunk(
   'AuthJWT',
   async (token, { rejectWithValue }) => {
     try {
+      console.log('AuthJWT');
+
       const { data } = await api.get<AxiosResponse<IUser>>(
         URL_AUTH_CURRENT_SESSION,
         token

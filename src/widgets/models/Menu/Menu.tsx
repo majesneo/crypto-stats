@@ -59,7 +59,7 @@ export const Menu = () => {
                 />
               </>
             }
-            openButton={<span>Sign in</span>}
+            openButton={<span style={{ cursor: 'pointer' }}>Sign in</span>}
           />
           <AuthModal
             modalContent={
