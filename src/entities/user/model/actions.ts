@@ -1,4 +1,4 @@
 import { userSlice } from "./slice";
 
 
-export const { Logout } = userSlice.actions
+export const { Logout, resetLoading } = userSlice.actions

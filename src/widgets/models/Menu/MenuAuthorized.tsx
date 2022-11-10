@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../../entities/user/model/actions';
+import { Logout, resetLoading } from '../../../entities/user/model/actions';
 import { RootState } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
 import { Button } from '../../../shared/ui/components/button/Button';
 import { CartIcon } from '../../../shared/ui/components/Icons/CartIcon/Index';
+import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
@@ -28,6 +29,10 @@ export const MenuAuthorized = () => {
   const dispatch = useDispatch();
   const logout = () => {
     dispatch(Logout())
+    setTimeout(() => {
+      dispatch(resetLoading())
+      return null;
+    }, 500);
   }
 
   return (
@@ -35,9 +40,9 @@ export const MenuAuthorized = () => {
       <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
         <div>LOGO</div>
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
-          <span>Products</span>
-          <span>Category</span>
-          <CartIcon />
+          <NavItem to={'/'}>Products</NavItem>
+          <NavItem to={'/category'}>Category</NavItem>
+          <NavItem to={'/cart'}><CartIcon /></NavItem>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <Avatar src={avatar} />

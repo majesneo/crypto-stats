@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
-import { ProductContainer } from '../entities/product/ui/ProductContainer/ProductContainer';
-import { Menu } from '../widgets/models/Menu/Menu';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ProductsNotAuth } from '../pages/Product/ProductsNotAuth';
 
 export const UnauthenticatedApp: FC = () => {
   return (
-    <>
-      <Menu />
-      <ProductContainer spacing="XL" minItemWidth="24rem" />
-    </>
+    <BrowserRouter>
+      <Routes >
+        <Route path="/" element={<ProductsNotAuth />} />
+        {/* <Route path="*" /> */}
+      </Routes>
+    </BrowserRouter>
   );
 };

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthJWT, Login } from '../../../features/Authentication/thunk';
-import { State, STATUS } from '../../../shared/constants/constants';
-import { Logout } from './actions';
+import { STATUS } from '../../../shared/constants/constants';
 import { IUser } from './constants';
 
 interface userState<T> {
@@ -23,11 +22,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     Logout: (state: userState<IUser>, action) => {
-      console.log(action, 'action');
-      console.log('Logout');
-
+      state.loading = STATUS.LOADING;
       state.essence = null
       state.token = ''
+    },
+    resetLoading: (state: userState<IUser>, action) => {
+      state.loading = STATUS.IDLE;
     }
   },
   extraReducers: (builder) => {

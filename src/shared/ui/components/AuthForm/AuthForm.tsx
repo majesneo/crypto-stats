@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useRef } from 'react';
-import { STATUS } from '../../../../shared/constants/constants';
+import { STATUS } from '../../../constants/constants';
 import { Field } from '../Field/FieldGroup';
 import { Spinner } from '../Spinner/Spinner';
 import { StyledForm } from './style';

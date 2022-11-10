@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Login, SignUp } from '../../../features/Authentication/thunk';
+import { Login } from '../../../features/Authentication/thunk';
 import { RootState } from '../../../shared/lib/store/store';
 import { AuthForm } from '../../../shared/ui/components/AuthForm/AuthForm';
 import { Button } from '../../../shared/ui/components/button/Button';
+import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
@@ -27,25 +28,13 @@ export const Menu = () => {
     dispatch(Login({ email, password }));
   };
 
-  const signUp = ({
-    name,
-    password,
-    email,
-  }: {
-    name: string;
-    password: string;
-    email: string;
-  }) => {
-    dispatch(SignUp({ email, password, username }));
-  };
-
   return (
     <MenuContainer>
       <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
         <div>LOGO</div>
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
-          <span>Products</span>
-          <span>Category</span>
+          <NavItem to={'/'}>Products</NavItem>
+          <NavItem to={'/category'}>Category</NavItem>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <AuthModal
@@ -59,23 +48,7 @@ export const Menu = () => {
                 />
               </>
             }
-            openButton={<span style={{ cursor: 'pointer' }}>Sign in</span>}
-          />
-          <AuthModal
-            modalContent={
-              <>
-                <h1 style={{ textAlign: 'center' }}>Sign up</h1>
-                <AuthForm
-                  isSinUpForm={true}
-                  status={loading}
-                  onSubmit={signUp}
-                  submitButton={
-                    <Button variant={COLORS.PRIMARY}>Sign up</Button>
-                  }
-                />
-              </>
-            }
-            openButton={<Button variant={COLORS.SECONDARY}>Sign up</Button>}
+            openButton={<Button variant={COLORS.SECONDARY}>Sign in</Button>}
           />
         </FlexContainer>
       </FlexContainer>

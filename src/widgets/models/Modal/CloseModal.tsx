@@ -10,5 +10,5 @@ interface IClose {
 
 
 export const CloseModal: FC<IClose & { onClick?: React.MouseEventHandler<SVGElement> }> = ({ children, ...props }) => {
-  return <CloseIcon {...props} >{children}</CloseIcon>
-}
+  return < CloseIcon {...props} > {children}</CloseIcon>
+} 

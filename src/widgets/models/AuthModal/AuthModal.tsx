@@ -1,8 +1,7 @@
 import React, { FC, ReactElement, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/lib/store/store';
-import { ModalBackground } from '../Modal/ModalBackground';
-import { Modal, ModalCloseButton, ModalContents, ModalOpenButton } from '../Modal/ModalContext';
+import { Modal, ModalContents, ModalOpenButton } from '../Modal/ModalContext';
 
 interface IAuthModal {
   openButton: ReactElement;
@@ -25,4 +24,4 @@ export const AuthModal: FC<IAuthModal> = ({
       <ModalOpenButton>{openButton}</ModalOpenButton>
     </Modal>
   );
-};
+};  

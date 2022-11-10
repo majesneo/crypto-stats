@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext, FC, ReactNode } from 'react';
-import { useUniqueId } from '../../../../shared/lib/utils';
+import { useUniqueId } from '../../../lib/utils';
 import { Input } from './input/Input';
 import { Label } from './label/Label';
 

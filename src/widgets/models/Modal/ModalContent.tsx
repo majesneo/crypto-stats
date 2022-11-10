@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, useEffect } from 'react';
-import { useDisableScroll } from '../../../shared/hooks/useDisableScroll';
 import { CloseModal } from './CloseModal';
 import { StyledModalContent, StyledModalWrapper } from './style';
 

@@ -48,20 +48,3 @@ export const AuthJWT = createAsyncThunk(
     }
   }
 );
-
-type signUpData = Pick<IUser, 'email' | 'password' | 'name'>;
-
-export const SignUp = createAsyncThunk(
-  'SignUp',
-  async (signUpData: signUpData, { rejectWithValue }) => {
-    try {
-      const { data } = await api.post<AxiosResponse>(URL_AUTH, signUpData);
-      console.log(data, 'data signUpData');
-
-      return data;
-    } catch (e) {
-      console.error(e);
-      return rejectWithValue('Fail SignUp');
-    }
-  }
-);
