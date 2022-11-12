@@ -35,6 +35,7 @@ export const Menu = () => {
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <NavItem to={'/'}>Products</NavItem>
           <NavItem to={'/category'}>Category</NavItem>
+
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <AuthModal

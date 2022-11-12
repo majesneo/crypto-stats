@@ -1,4 +1,5 @@
-import React, { FC } from "react"
+import React, { FC, ReactNode } from "react"
+
 import { MenuAuthorized } from "../../widgets/models/Menu/MenuAuthorized"
 
 

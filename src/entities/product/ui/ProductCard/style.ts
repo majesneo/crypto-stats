@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const ProductContainer = styled.div`
   text-align: center;
   box-sizing: border-box;
   padding: 20px;

@@ -10,11 +10,11 @@ import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS } from '../../../../shared/ui/constants/style';
 import { AuthModal } from '../../../../widgets/models/AuthModal/AuthModal';
 import { IProduct } from '../../model/constants';
-import { Container, Price, Title, Val } from './style';
+import { Price, ProductContainer, Title, Val } from './style';
 
 
 
-export const ProductCard: FC<IProduct> = ({ title, price, images }) => {
+export const ProductCard: FC<IProduct & { handleToCart: (product: IProduct) => void; }> = ({ title, price, images, handleToCart }) => {
   const { loading } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export const ProductCard: FC<IProduct> = ({ title, price, images }) => {
   };
 
   return (
-    <Container>
+    <ProductContainer>
       <Photo ratio={[1, 1]}>
         <ProgressiveImage src={images[0]} placeholder="">
           {(src, loading) =>
@@ -48,8 +48,8 @@ export const ProductCard: FC<IProduct> = ({ title, price, images }) => {
             />
           </>
         }
-        openButton={<Button isFullWidth variant={COLORS.PRIMARY}>Add to card</Button>}
+        openButton={<Button onClick={handleToCart} isFullWidth variant={COLORS.PRIMARY}>Add to card</Button>}
       />
-    </Container>
+    </ProductContainer>
   );
 };

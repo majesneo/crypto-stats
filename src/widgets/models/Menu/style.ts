@@ -19,6 +19,7 @@ export const MenuItemsContainer = styled.div<MenuItemsContainerProps>`
 
 export const MenuContainer = styled.div`
   padding: ${SPACING_MAP.MD};
+  font-size: 20px;
 `;
 
 export const FlexContainer = styled(MenuItemsContainer)`

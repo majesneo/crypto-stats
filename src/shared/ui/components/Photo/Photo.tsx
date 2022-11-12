@@ -5,8 +5,10 @@ import { StyledPhoto } from './style';
 export interface StyledPhotoProps {
   ratio: [number, number];
   children: React.ReactNode;
+  height?: string;
+  width?: string;
 }
 
-export const Photo: FC<StyledPhotoProps> = ({ ratio, children }) => {
-  return <StyledPhoto ratio={ratio}>{children}</StyledPhoto>;
+export const Photo: FC<StyledPhotoProps> = ({ ratio, children, width, height }) => {
+  return <StyledPhoto width={width} height={height} ratio={ratio}>{children}</StyledPhoto>;
 };

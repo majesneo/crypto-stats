@@ -10,12 +10,14 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { cartSlice } from '../../../entities/cart/model/slice';
 import { productSlice } from '../../../entities/product/model/slice';
 import { userSlice } from '../../../entities/user/model/slice';
 
 const rootReducer = combineReducers({
   product: productSlice.reducer,
   user: userSlice.reducer,
+  cart: cartSlice.reducer,
 });
 
 const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer);

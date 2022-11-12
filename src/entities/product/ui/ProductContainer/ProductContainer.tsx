@@ -1,5 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../../../entities/cart/model/actions';
+import { IProduct } from '../../../../entities/cart/model/constants';
 import { STATUS } from '../../../../shared/constants/constants';
 import { RootState } from '../../../../shared/lib/store/store';
 import { Spinner } from '../../../../shared/ui/components/Spinner/Spinner';
@@ -28,6 +30,11 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
     }
   }, [products, dispatch]);
 
+  const handleToCart = (product: IProduct) => {
+    dispatch(addToCart(product))
+  }
+
+
   if (loading === STATUS.LOADING) {
     return <Spinner isFullWidth />;
   }
@@ -35,7 +42,7 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   return (
     <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
       {products?.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} {...product} handleToCart={() => handleToCart(product)} />
       ))}
     </StyledGridContainer>
   );

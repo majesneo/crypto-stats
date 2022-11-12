@@ -1,16 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import CartIcon from '../../../entities/cart/ui/CartIcon/CartIcon';
 import { Logout, resetLoading } from '../../../entities/user/model/actions';
 import { RootState } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
 import { Button } from '../../../shared/ui/components/button/Button';
-import { CartIcon } from '../../../shared/ui/components/Icons/CartIcon/Index';
 import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
   SIZE,
-  SPACING_MAP,
+  SPACING_MAP
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
@@ -27,7 +28,9 @@ export const MenuAuthorized = () => {
   } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const logout = () => {
+    navigate("/");
     dispatch(Logout())
     setTimeout(() => {
       dispatch(resetLoading())
@@ -42,7 +45,7 @@ export const MenuAuthorized = () => {
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <NavItem to={'/'}>Products</NavItem>
           <NavItem to={'/category'}>Category</NavItem>
-          <NavItem to={'/cart'}><CartIcon /></NavItem>
+          <NavItem to={'/cart'}><CartIcon widthIcon={'25px'} heightIcon={'25px'} /></NavItem>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <Avatar src={avatar} />

@@ -5,7 +5,7 @@ import { StyledNavItem } from "./style";
 
 export interface INavLink {
   children: ReactNode;
-  to: string
+  to: string;
 }
 
 

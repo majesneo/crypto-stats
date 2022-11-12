@@ -3,7 +3,7 @@ import { COLORS, SIZE } from '../../constants/style';
 import { StyledButton } from './styles';
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
-  variant?: COLORS.PRIMARY | COLORS.SECONDARY;
+  variant?: keyof typeof COLORS;
   size?: SIZE.SMALL | SIZE.LARGE;
   isFullWidth?: boolean;
 }

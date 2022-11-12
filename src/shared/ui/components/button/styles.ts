@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 
 import {
   COLORS,
+  DANGER_COLOR,
+  DANGER_HOVER_COLOR,
   DISABLED_OPACITY,
   PRIMARY_COLOR,
   PRIMARY_DARK_COLOR,
@@ -9,6 +11,8 @@ import {
   SECONDARY_COLOR,
   SECONDARY_TEXT_COLOR,
   SIZE,
+  THIRD_COLOR,
+  THIRD_HOVER_COLOR,
 } from '../../constants/style';
 import { ButtonProps } from './Button';
 
@@ -21,6 +25,16 @@ const colorStyles = (p: ButtonProps) => {
     color = PRIMARY_TEXT_COLOR;
     backgroundColor = PRIMARY_COLOR;
     hoverColor = PRIMARY_DARK_COLOR;
+  }
+  if (p.variant === COLORS.DANGER) {
+    color = PRIMARY_TEXT_COLOR;
+    backgroundColor = DANGER_COLOR;
+    hoverColor = DANGER_HOVER_COLOR;
+  }
+  if (p.variant === COLORS.THIRD) {
+    color = PRIMARY_TEXT_COLOR;
+    backgroundColor = THIRD_COLOR;
+    hoverColor = THIRD_HOVER_COLOR;
   }
 
   return css`

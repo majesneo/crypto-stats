@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import { ProductContainer } from "../../entities/product/ui/ProductContainer/ProductContainer"
-import { MenuAuthorized } from "../../widgets/models/Menu/MenuAuthorized"
 
 
 

@@ -4,8 +4,9 @@ import styled from "styled-components";
 
 
 
-export const CartIcon = styled(BsCart3)`
+export const CartIconSvg = styled(BsCart3)`
 width:15px;
 height:15px;
 cursor: pointer;
+
 `
