@@ -25,7 +25,7 @@ const CartProduct: FC<ICartProduct> = memo(
     const [localAmount, setLocalAmount] = useState(amount);
 
 		useEffect(() => {
-			if (!essence[id]) {
+			if (!essence[id] || essence[id].amount !== localAmount) {
 				dispatch(setAmount({ id, amount: localAmount }));
 			}
     }, [localAmount, dispatch, id, essence]);
