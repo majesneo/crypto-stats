@@ -12,7 +12,7 @@ if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <>
+  <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <FontsStyle />
@@ -21,5 +21,5 @@ root.render(
         </AppWrapper>
       </PersistGate>
     </Provider>
-  </>
+  </React.StrictMode>
 );

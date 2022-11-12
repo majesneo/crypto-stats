@@ -14,7 +14,7 @@ export const Cart: FC = () => {
 
   console.log('test');
 
-  const memoCartProducts = useMemo(() => cartProducts, [cartProducts]);
+  // const memoCartProducts = useMemo(() => cartProducts, [cartProducts]);
   return (
     <Container>
       <CartProductTable>
@@ -24,7 +24,7 @@ export const Cart: FC = () => {
         <ColumnName>Quantity</ColumnName>
         <ColumnName>Total</ColumnName>
         <ColumnName></ColumnName>
-        {memoCartProducts.map((product) => (
+        {cartProducts.map((product) => (
           <CartProduct key={product.id} {...product} />
         ))}
       </CartProductTable>

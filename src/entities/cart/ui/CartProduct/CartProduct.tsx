@@ -1,20 +1,21 @@
 import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   removeFromCart,
   setAmount,
 } from '../../../../entities/cart/model/actions';
 import { ICartProduct } from '../../../../entities/cart/model/slice';
+import { RootState } from '../../../../shared/lib/store/store';
 import { Button } from '../../../../shared/ui/components/button/Button';
 import { Field } from '../../../../shared/ui/components/Field/FieldGroup';
 import { Input } from '../../../../shared/ui/components/Field/input/Input';
-
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS, SIZE } from '../../../../shared/ui/constants/style';
-import { ProductTitle } from './style';
 
+import { ProductTitle } from './style';
 const CartProduct: FC<ICartProduct> = memo(
   ({ title, price, images, description, amount, id }) => {
+    const { essence } = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
     const removeProduct = (id: number) => {
@@ -23,9 +24,11 @@ const CartProduct: FC<ICartProduct> = memo(
 
     const [localAmount, setLocalAmount] = useState(amount);
 
-    useEffect(() => {
-      dispatch(setAmount({ id, amount: localAmount }));
-    }, [localAmount, dispatch, id]);
+		useEffect(() => {
+			if (!essence[id]) {
+				dispatch(setAmount({ id, amount: localAmount }));
+			}
+    }, [localAmount, dispatch, id, essence]);
 
     return (
       <>
