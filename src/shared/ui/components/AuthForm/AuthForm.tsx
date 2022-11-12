@@ -25,11 +25,10 @@ export const AuthForm: FC<AuthFormI> = ({
   status,
   isSinUpForm,
 }) => {
-
-  const inputName = useRef<HTMLInputElement | null>(null)
-  const inputPassword = useRef<HTMLInputElement>()
-  const inputEmail = useRef<HTMLInputElement | null>(null)
-  function handleSubmit (event: FormEvent<HTMLFormElement>) {
+  const inputName = useRef<HTMLInputElement | null>(null);
+  const inputPassword = useRef<HTMLInputElement>();
+  const inputEmail = useRef<HTMLInputElement | null>(null);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     onSubmit({

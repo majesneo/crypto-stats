@@ -8,7 +8,7 @@ import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
-  SPACING_MAP
+  SPACING_MAP,
 } from '../../../shared/ui/constants/style';
 import { AuthModal } from '../AuthModal/AuthModal';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
@@ -35,7 +35,6 @@ export const Menu = () => {
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <NavItem to={'/'}>Products</NavItem>
           <NavItem to={'/category'}>Category</NavItem>
-
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <AuthModal

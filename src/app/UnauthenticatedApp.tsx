@@ -5,7 +5,7 @@ import { ProductsNotAuth } from '../pages/Product/ProductsNotAuth';
 export const UnauthenticatedApp: FC = () => {
   return (
     <BrowserRouter>
-      <Routes >
+      <Routes>
         <Route path="/" element={<ProductsNotAuth />} />
         <Route path="/category" element={<Navigate to="/" replace />} />
         {/* <Route path="*" /> */}

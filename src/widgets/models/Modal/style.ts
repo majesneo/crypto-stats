@@ -28,8 +28,8 @@ export const StyledModalContent = styled.div<StyledModalContentI>`
 `;
 
 export const StyledModalWrapper = styled.div`
-position: relative;
-gap: 2rem;
-display: flex;
-flex-direction: column;
-`
+  position: relative;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+`;

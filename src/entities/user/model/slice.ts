@@ -23,12 +23,12 @@ export const userSlice = createSlice({
   reducers: {
     Logout: (state: userState<IUser>, action) => {
       state.loading = STATUS.LOADING;
-      state.essence = null
-      state.token = ''
+      state.essence = null;
+      state.token = '';
     },
     resetLoading: (state: userState<IUser>, action) => {
       state.loading = STATUS.IDLE;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,8 +40,8 @@ export const userSlice = createSlice({
         state.error = '';
       })
       .addCase(AuthJWT.rejected, (state, action) => {
-        state.essence = null
-        state.token = ''
+        state.essence = null;
+        state.token = '';
       })
       .addMatcher(
         (action) => action.type.endsWith(`/pending`),

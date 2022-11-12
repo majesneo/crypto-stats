@@ -11,7 +11,7 @@ import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
   SIZE,
-  SPACING_MAP
+  SPACING_MAP,
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
@@ -30,13 +30,13 @@ export const MenuAuthorized = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
-    navigate("/");
-    dispatch(Logout())
+    navigate('/');
+    dispatch(Logout());
     setTimeout(() => {
-      dispatch(resetLoading())
+      dispatch(resetLoading());
       return null;
     }, 500);
-  }
+  };
 
   return (
     <MenuContainer>
@@ -45,12 +45,16 @@ export const MenuAuthorized = () => {
         <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
           <NavItem to={'/'}>Products</NavItem>
           <NavItem to={'/category'}>Category</NavItem>
-          <NavItem to={'/cart'}><CartIcon widthIcon={'25px'} heightIcon={'25px'} /></NavItem>
+          <NavItem to={'/cart'}>
+            <CartIcon widthIcon={'25px'} heightIcon={'25px'} />
+          </NavItem>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
           <Avatar src={avatar} />
           <div>{name}</div>
-          <Button onClick={logout} variant={COLORS.SECONDARY} size={SIZE.SMALL} >Logout</Button>
+          <Button onClick={logout} variant={COLORS.SECONDARY} size={SIZE.SMALL}>
+            Logout
+          </Button>
         </FlexContainer>
       </FlexContainer>
     </MenuContainer>

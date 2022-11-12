@@ -27,7 +27,7 @@ export const ModalContent: FC<IModalContent> = ({
     }
     console.log('hidden');
 
-    document.body.style.overflowY = 'hidden'
+    document.body.style.overflowY = 'hidden';
 
     return () => {
       console.log('unmounte');

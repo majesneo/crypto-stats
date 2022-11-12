@@ -31,9 +31,8 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   }, [products, dispatch]);
 
   const handleToCart = (product: IProduct) => {
-    dispatch(addToCart(product))
-  }
-
+    dispatch(addToCart(product));
+  };
 
   if (loading === STATUS.LOADING) {
     return <Spinner isFullWidth />;
@@ -42,7 +41,11 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   return (
     <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>
       {products?.map((product) => (
-        <ProductCard key={product.id} {...product} handleToCart={() => handleToCart(product)} />
+        <ProductCard
+          key={product.id}
+          {...product}
+          handleToCart={() => handleToCart(product)}
+        />
       ))}
     </StyledGridContainer>
   );

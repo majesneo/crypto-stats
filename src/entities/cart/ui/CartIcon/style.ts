@@ -1,15 +1,13 @@
-import styled, { css, keyframes } from "styled-components"
-import { CartIconProps } from "./CartIcon";
-
+import styled, { css, keyframes } from 'styled-components';
+import { CartIconProps } from './CartIcon';
 
 export const StyledCartIcon = styled.div<CartIconProps>`
-position: relative;
->svg{
-  width:${({ widthIcon }) => widthIcon ? widthIcon : '100%'};
-  height:${({ heightIcon }) => heightIcon ? heightIcon : '100%'};
-}
-`
-
+  position: relative;
+  > svg {
+    width: ${({ widthIcon }) => (widthIcon ? widthIcon : '100%')};
+    height: ${({ heightIcon }) => (heightIcon ? heightIcon : '100%')};
+  }
+`;
 
 const Circle = keyframes({
   '0%': { transform: 'scale3d(1, 1, 1)' },
@@ -20,25 +18,23 @@ const Circle = keyframes({
 export const setAnimationCircle = () => {
   return css`
     animation: ${Circle};
-    animation-duration: .5s;
+    animation-duration: 0.5s;
     animation-fill-mode: both;
   `;
 };
 
 export const CartIconCircle = styled.div<CartIconProps>`
-    font-size: 14px;
-    color: white;
-    background-color: red;
-    border-radius: 20px;
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    top: -5px;
-    left: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    ${setAnimationCircle}
-`
-
-
+  font-size: 14px;
+  color: white;
+  background-color: red;
+  border-radius: 20px;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: -5px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${setAnimationCircle}
+`;

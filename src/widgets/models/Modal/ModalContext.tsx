@@ -5,7 +5,7 @@ import { ModalContent } from './ModalContent';
 
 export const ModalContext = createContext({
   isOpen: false,
-  setIsOpen (isOpen: boolean) {
+  setIsOpen(isOpen: boolean) {
     return;
   },
 });
@@ -14,10 +14,7 @@ export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <ModalContext.Provider
-      value={{ isOpen, setIsOpen }}
-      {...props}
-    >
+    <ModalContext.Provider value={{ isOpen, setIsOpen }} {...props}>
       {children}
     </ModalContext.Provider>
   );
@@ -49,7 +46,6 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
 
-
   return (
     <>
       <ModalBackground isOpen={isOpen} onClick={() => setIsOpen(false)} />
@@ -58,7 +54,6 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
         closeModal={() => setIsOpen(false)}
         {...props}
       >
-
         {children}
       </ModalContent>
     </>

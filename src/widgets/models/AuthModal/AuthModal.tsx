@@ -8,10 +8,7 @@ interface IAuthModal {
   modalContent?: ReactNode;
 }
 
-export const AuthModal: FC<IAuthModal> = ({
-  modalContent,
-  openButton,
-}) => {
+export const AuthModal: FC<IAuthModal> = ({ modalContent, openButton }) => {
   const { essence: user } = useSelector((state: RootState) => state.user);
 
   if (user) {
@@ -24,4 +21,4 @@ export const AuthModal: FC<IAuthModal> = ({
       <ModalOpenButton>{openButton}</ModalOpenButton>
     </Modal>
   );
-};  
+};

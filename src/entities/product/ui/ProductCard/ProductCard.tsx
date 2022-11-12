@@ -12,9 +12,9 @@ import { AuthModal } from '../../../../widgets/models/AuthModal/AuthModal';
 import { IProduct } from '../../model/constants';
 import { Price, ProductContainer, Title, Val } from './style';
 
-
-
-export const ProductCard: FC<IProduct & { handleToCart: (product: IProduct) => void; }> = ({ title, price, images, handleToCart }) => {
+export const ProductCard: FC<
+  IProduct & { handleToCart: (product: IProduct) => void }
+> = ({ title, price, images, handleToCart }) => {
   const { loading } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
 
@@ -48,7 +48,11 @@ export const ProductCard: FC<IProduct & { handleToCart: (product: IProduct) => v
             />
           </>
         }
-        openButton={<Button onClick={handleToCart} isFullWidth variant={COLORS.PRIMARY}>Add to card</Button>}
+        openButton={
+          <Button onClick={handleToCart} isFullWidth variant={COLORS.PRIMARY}>
+            Add to card
+          </Button>
+        }
       />
     </ProductContainer>
   );

@@ -3,7 +3,7 @@ import { StyledModalBackground } from './style';
 
 export interface StyledModalBackgroundI {
   isOpen: boolean;
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 export const ModalBackground: FC<StyledModalBackgroundI> = ({ ...props }) => {

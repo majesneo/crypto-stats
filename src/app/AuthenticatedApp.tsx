@@ -8,7 +8,7 @@ export const AuthenticatedApp: FC = () => {
   return (
     <BrowserRouter>
       <LayoutDefault>
-        <Routes >
+        <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/category" element={<Navigate to="/" replace />} />
