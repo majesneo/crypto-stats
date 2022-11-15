@@ -1,8 +1,16 @@
-import React, { cloneElement, ReactNode, useContext, useEffect } from 'react';
-import { createContext, FC, useState } from 'react';
+import React, {
+  createContext,
+  FC,
+  ReactElement,
+  ReactNode,
+  useContext,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
 import { ModalBackground } from './ModalBackground';
 import { ModalContent } from './ModalContent';
 
+const rootModalElement = document.getElementById('rootModal') as Element;
 export const ModalContext = createContext({
   isOpen: false,
   setIsOpen(isOpen: boolean) {
@@ -10,7 +18,20 @@ export const ModalContext = createContext({
   },
 });
 
-export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
+interface ModalOpenButtonProps {
+  setIsOpen: () => void;
+}
+export const ModalOpenButton: FC<{
+  children: (props: ModalOpenButtonProps) => ReactElement;
+}> = ({ children }) => {
+  const { isOpen, setIsOpen } = React.useContext(ModalContext);
+
+  return children({
+    setIsOpen: () => setIsOpen(true),
+  });
+};
+
+export const Modal: FC<IModal> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,26 +40,9 @@ export const Modal: FC<{ children: ReactNode }> = ({ children, ...props }) => {
     </ModalContext.Provider>
   );
 };
-
-export const ModalCloseButton: FC<{ children: ReactNode }> = ({
-  children: child,
-}) => {
-  const { setIsOpen } = useContext(ModalContext);
-
-  return cloneElement(child as React.ReactElement, {
-    onClick: () => setIsOpen(false),
-  });
-};
-
-export const ModalOpenButton: FC<{ children: ReactNode }> = ({
-  children: child,
-}) => {
-  const { setIsOpen } = useContext(ModalContext);
-
-  return cloneElement(child as React.ReactElement, {
-    onClick: () => setIsOpen(true),
-  });
-};
+interface IModal {
+  children: ReactNode;
+}
 
 export const ModalContents: FC<{ children: ReactNode }> = ({
   children,
@@ -46,7 +50,7 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
 
-  return (
+  return createPortal(
     <>
       <ModalBackground isOpen={isOpen} onClick={() => setIsOpen(false)} />
       <ModalContent
@@ -56,7 +60,8 @@ export const ModalContents: FC<{ children: ReactNode }> = ({
       >
         {children}
       </ModalContent>
-    </>
+    </>,
+    rootModalElement
   );
 };
 

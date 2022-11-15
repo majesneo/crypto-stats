@@ -1,18 +1,15 @@
 import React from 'react';
+// eslint-disable-next-line import/no-internal-modules
 import '../shared/lib/reset-CSS/rest.css';
 
-import { useAuth } from '../features/Authentication/hooks';
-import { STATUS } from '../shared/constants/constants';
-import { Spinner } from '../shared/ui/components/Spinner/Spinner';
-import { AuthenticatedApp } from './AuthenticatedApp';
-import { UnauthenticatedApp } from './UnauthenticatedApp';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from '../pages/PageError/ErrorPage';
+import { AppRoutes } from '../shared/lib/AppRoutes/AppRoutes';
 
 export const App = () => {
-  const { user, loading } = useAuth();
-
-  if (loading === STATUS.LOADING) {
-    return <Spinner isFullWidth />;
-  }
-
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  return (
+    <ErrorBoundary FallbackComponent={ErrorPage}>
+      <AppRoutes />
+    </ErrorBoundary>
+  );
 };

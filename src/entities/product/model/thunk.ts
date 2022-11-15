@@ -6,11 +6,11 @@ import { BASE_URL_PRODUCT, IProduct, URL_PRODUCT } from './constants';
 
 const api = new Fetcher(new Axios(BASE_URL_PRODUCT));
 
-export const getProducts = createAsyncThunk(
+export const getProducts = createAsyncThunk<IProduct[]>(
   'getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const { data }: AxiosResponse = await api.get<AxiosResponse>(URL_PRODUCT);
+      const { data } = await api.get<AxiosResponse<IProduct[]>>(URL_PRODUCT);
       return data;
     } catch (e) {
       return rejectWithValue('Fail loading products');
@@ -18,11 +18,11 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const getProduct = createAsyncThunk(
+export const getProduct = createAsyncThunk<IProduct, number>(
   'getProduct',
   async (productID, { rejectWithValue }) => {
     try {
-      return await api.get<IProduct[]>(`${URL_PRODUCT}/${productID}`);
+      return await api.get<IProduct>(`${URL_PRODUCT}/${productID}`);
     } catch (e) {
       return rejectWithValue('Fail loading product');
     }

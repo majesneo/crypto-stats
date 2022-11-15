@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
+import React, { FC, forwardRef } from 'react';
 import { StyledImgPlaceholder } from './style';
 
-export const ImgPlaceholder = forwardRef((props, ref) => {
+export const ImgPlaceholder: FC = forwardRef<HTMLDivElement>((props, ref) => {
   return <StyledImgPlaceholder ref={ref} />;
 });

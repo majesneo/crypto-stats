@@ -1,5 +1,5 @@
 export interface FetcherI {
-  post<T>(url: string, data: T): Promise<T>;
+  post<T, B>(url: string, body: B): Promise<T>;
   get<T>(url: string, token?: string): Promise<T>;
 }
 
@@ -10,7 +10,7 @@ export class Fetcher {
     return this.instance.get(url, token);
   }
 
-  post<T>(url: string, data: T): Promise<T> {
-    return this.instance.post(url, data);
+  post<T, B>(url: string, body: B): Promise<T> {
+    return this.instance.post(url, body);
   }
 }

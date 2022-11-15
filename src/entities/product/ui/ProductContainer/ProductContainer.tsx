@@ -1,12 +1,14 @@
-import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../../../entities/cart/model/actions';
-import { IProduct } from '../../../../entities/cart/model/constants';
+import React, { FC } from 'react';
+import { addToCart, setAmount } from '../../../../entities/cart/model/actions';
+import { IProduct } from '../../../../entities/product/model/constants';
+import { useGetProducts } from '../../../../entities/product/model/hooks';
 import { STATUS } from '../../../../shared/constants/constants';
-import { RootState } from '../../../../shared/lib/store/store';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../shared/lib/store/store';
 import { Spinner } from '../../../../shared/ui/components/Spinner/Spinner';
 import { SPACING_MAP } from '../../../../shared/ui/constants/style';
-import { getProducts } from '../../model/thunk';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { StyledGridContainer } from './style';
 
@@ -19,19 +21,21 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
   spacing,
   minItemWidth,
 }) => {
-  const { essence: products, loading } = useSelector(
-    (state: RootState) => state.product
-  );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { essence: cartProduct } = useAppSelector((state) => state.cart);
+  const { loading, products } = useGetProducts();
 
-  useEffect(() => {
-    if (!products) {
-      dispatch(getProducts());
+  const handleAddToCart = (product: IProduct) => {
+    if (!cartProduct[product.id]) {
+      dispatch(addToCart({ product }));
+    } else {
+      dispatch(
+        setAmount({
+          id: product.id,
+          amount: cartProduct[product.id].amount + 1,
+        })
+      );
     }
-  }, [products, dispatch]);
-
-  const handleToCart = (product: IProduct) => {
-    dispatch(addToCart(product));
   };
 
   if (loading === STATUS.LOADING) {
@@ -44,7 +48,7 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
         <ProductCard
           key={product.id}
           {...product}
-          handleToCart={() => handleToCart(product)}
+          addToCart={() => handleAddToCart(product)}
         />
       ))}
     </StyledGridContainer>

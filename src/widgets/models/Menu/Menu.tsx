@@ -1,8 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Login } from '../../../features/Authentication/thunk';
-import { RootState } from '../../../shared/lib/store/store';
-import { AuthForm } from '../../../shared/ui/components/AuthForm/AuthForm';
+import { AuthForm } from '../../../features/Authentication/ui/AuthForm/AuthForm';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../shared/lib/store/store';
 import { Button } from '../../../shared/ui/components/button/Button';
 import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
@@ -10,7 +12,7 @@ import {
   JUSTIFY_ALIGN_MAP,
   SPACING_MAP,
 } from '../../../shared/ui/constants/style';
-import { AuthModal } from '../AuthModal/AuthModal';
+import { Modal, ModalContents, ModalOpenButton } from '../Modal/ModalContext';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
 export interface MenuItemsContainerProps {
@@ -21,10 +23,16 @@ export interface MenuItemsContainerProps {
 }
 
 export const Menu = () => {
-  const { loading } = useSelector((state: RootState) => state.product);
-  const dispatch = useDispatch();
+  const { loading } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
-  const login = ({ email, password }: { email: string; password: string }) => {
+  const login = ({
+    email,
+    password,
+  }: {
+    email?: string;
+    password?: string;
+  }) => {
     dispatch(Login({ email, password }));
   };
 
@@ -37,19 +45,29 @@ export const Menu = () => {
           <NavItem to={'/category'}>Category</NavItem>
         </MenuItemsContainer>
         <FlexContainer space="MD" align="CENTER" justify="END">
-          <AuthModal
-            modalContent={
-              <>
-                <h2 style={{ textAlign: 'center' }}>Login</h2>
-                <AuthForm
-                  status={loading}
-                  onSubmit={login}
-                  submitButton={<Button variant={COLORS.PRIMARY}>Login</Button>}
-                />
-              </>
-            }
-            openButton={<Button variant={COLORS.SECONDARY}>Sign in</Button>}
-          />
+          <Modal>
+            <ModalContents>
+              <h2 style={{ textAlign: 'center' }}>Login</h2>
+              <AuthForm status={loading}>
+                {(props) => (
+                  <Button
+                    onClick={() => login(props.login())}
+                    type="submit"
+                    variant={COLORS.PRIMARY}
+                  >
+                    Login
+                  </Button>
+                )}
+              </AuthForm>
+            </ModalContents>
+            <ModalOpenButton>
+              {(props) => (
+                <Button onClick={props.setIsOpen} variant={COLORS.SECONDARY}>
+                  Sign in
+                </Button>
+              )}
+            </ModalOpenButton>
+          </Modal>
         </FlexContainer>
       </FlexContainer>
     </MenuContainer>

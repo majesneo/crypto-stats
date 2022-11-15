@@ -5,6 +5,7 @@ export const PRIMARY_TEXT_COLOR = '#fff';
 export const PRIMARY_DARK_COLOR = '#0050e0';
 export const DISABLED_OPACITY = 0.65;
 export const DANGER_COLOR = '#c66';
+export const DANGER_TEXT_COLOR = '#dc3545';
 export const DANGER_HOVER_COLOR = '#a44';
 export const THIRD_COLOR = '#6b6';
 export const THIRD_HOVER_COLOR = '#494';

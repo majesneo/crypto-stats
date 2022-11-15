@@ -1,10 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { STATUS } from '../../../shared/constants/constants';
 import { IProduct } from './constants';
 
 export interface StateCart<T> {
   essence: { [key: string]: T };
-  totalPrice: 0;
   loading: keyof typeof STATUS;
   error: string;
 }
@@ -17,7 +16,6 @@ const initialState: StateCart<ICartProduct> = {
   essence: {},
   loading: STATUS.IDLE,
   error: '',
-  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -25,45 +23,22 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (
-      state: StateCart<ICartProduct>,
-      action: { payload: ICartProduct }
+      state,
+      { payload: { product } }: PayloadAction<{ product: IProduct }>
     ) => {
-      console.log('addToCart');
-      console.log(state.totalPrice, 'state1');
-
-      if (state.essence[action.payload.id]) {
-        state.essence[action.payload.id] = {
-          ...state.essence[action.payload.id],
-          amount: 1,
-        };
-        state.totalPrice += state.essence[action.payload.id].price;
-      } else {
-        state.essence[action.payload.id] = action.payload;
-        state.essence[action.payload.id] = {
-          ...state.essence[action.payload.id],
-          amount: 1,
-        };
-        state.totalPrice += state.essence[action.payload.id].price;
-      }
-      console.log(state.totalPrice, 'state2');
+      state.essence[product.id] = { ...product, amount: 1 };
     },
     removeFromCart: (
-      state: StateCart<ICartProduct>,
-      action: { payload: { id: number } }
+      state,
+      { payload: { id } }: PayloadAction<{ id: number }>
     ) => {
-      state.totalPrice -=
-        state.essence[action.payload.id].amount *
-        state.essence[action.payload.id].price;
-      delete state.essence[action.payload.id];
+      delete state.essence[id];
     },
     setAmount: (
-      state: StateCart<ICartProduct>,
-      action: { payload: { id: number; amount: number } }
+      state,
+      { payload: { amount, id } }: PayloadAction<{ id: number; amount: number }>
     ) => {
-      state.essence[action.payload.id].amount = action.payload.amount;
-      state.totalPrice +=
-        state.essence[action.payload.id].amount *
-        state?.essence[action.payload.id]?.price;
+      state.essence[id].amount = amount;
     },
   },
 });

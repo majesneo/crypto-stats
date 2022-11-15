@@ -3,9 +3,9 @@ export const URL_PRODUCT = '/products';
 
 export interface IProduct {
   id: number;
-  title?: string;
-  price?: number;
+  title: string;
+  price: number;
   description?: string;
   category?: number;
-  images?: string[];
+  images: string[];
 }

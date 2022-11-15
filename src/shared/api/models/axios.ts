@@ -42,7 +42,7 @@ export class Axios implements FetcherI {
     return this.axiosInstance.get(url);
   }
 
-  post<T>(url: string, body: T): Promise<T> {
+  post<T, B>(url: string, body: B): Promise<T> {
     return this.axiosInstance.post(url, body, this.headers);
   }
 }

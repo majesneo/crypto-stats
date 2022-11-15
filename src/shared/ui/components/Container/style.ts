@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { SECONDARY_COLOR } from '../../constants/style';
 import { ContainerProps } from './Container';
 
 export const StyledContainer = styled.div<ContainerProps>`

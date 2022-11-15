@@ -1,24 +1,40 @@
 import React, { FC } from 'react';
 import ProgressiveImage from 'react-progressive-graceful-image';
-import { useDispatch, useSelector } from 'react-redux';
 import { Login } from '../../../../features/Authentication/thunk';
-import { RootState } from '../../../../shared/lib/store/store';
-import { AuthForm } from '../../../../shared/ui/components/AuthForm/AuthForm';
+import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../shared/lib/store/store';
 import { Button } from '../../../../shared/ui/components/button/Button';
 import { ImgPlaceholder } from '../../../../shared/ui/components/ImgPlaceholder/ImgPlaceholder';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS } from '../../../../shared/ui/constants/style';
-import { AuthModal } from '../../../../widgets/models/AuthModal/AuthModal';
+import {
+  Modal,
+  ModalContents,
+  ModalOpenButton,
+} from '../../../../widgets/models/Modal/ModalContext';
 import { IProduct } from '../../model/constants';
 import { Price, ProductContainer, Title, Val } from './style';
 
-export const ProductCard: FC<
-  IProduct & { handleToCart: (product: IProduct) => void }
-> = ({ title, price, images, handleToCart }) => {
-  const { loading } = useSelector((state: RootState) => state.product);
-  const dispatch = useDispatch();
+export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
+  title,
+  price,
+  images,
+  addToCart,
+}) => {
+  const { loading } = useAppSelector((state) => state.product);
+  const { essence: user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
-  const login = ({ email, password }: { email?: string; password: string }) => {
+  const login = ({
+    email,
+    password,
+  }: {
+    email?: string;
+    password?: string;
+  }) => {
     dispatch(Login({ email, password }));
   };
 
@@ -37,23 +53,33 @@ export const ProductCard: FC<
           <b>{price}$</b>
         </Val>
       </Price>
-      <AuthModal
-        modalContent={
-          <>
-            <h2 style={{ textAlign: 'center' }}>Login</h2>
-            <AuthForm
-              status={loading}
-              onSubmit={login}
-              submitButton={<Button variant={COLORS.PRIMARY}>Login</Button>}
-            />
-          </>
-        }
-        openButton={
-          <Button onClick={handleToCart} isFullWidth variant={COLORS.PRIMARY}>
-            Add to card
-          </Button>
-        }
-      />
+      <Modal>
+        <ModalContents>
+          <h2 style={{ textAlign: 'center' }}>Login</h2>
+          <AuthForm status={loading}>
+            {(props) => (
+              <Button
+                onClick={() => login(props.login())}
+                type="submit"
+                variant={COLORS.PRIMARY}
+              >
+                Login
+              </Button>
+            )}
+          </AuthForm>
+        </ModalContents>
+        <ModalOpenButton>
+          {(props) => (
+            <Button
+              onClick={!user ? props.setIsOpen : addToCart}
+              isFullWidth
+              variant={COLORS.PRIMARY}
+            >
+              Add to cart
+            </Button>
+          )}
+        </ModalOpenButton>
+      </Modal>
     </ProductContainer>
   );
 };

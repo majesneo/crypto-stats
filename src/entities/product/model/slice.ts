@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { State, STATUS } from '../../../shared/constants/constants';
+import { STATUS } from '../../../shared/constants/constants';
 import { IProduct } from './constants';
 import { getProducts } from './thunk';
 

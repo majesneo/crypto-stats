@@ -1,8 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { SECONDARY_COLOR } from '../../constants/style';
-import { INavLink } from './NavItem';
 
-export const StyledNavItem = styled.span<INavLink>`
+export const StyledNavItem = styled.span`
   cursor: pointer;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;

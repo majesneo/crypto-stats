@@ -21,12 +21,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    Logout: (state: userState<IUser>, action) => {
+    Logout: (state: userState<IUser>) => {
       state.loading = STATUS.LOADING;
       state.essence = null;
       state.token = '';
     },
-    resetLoading: (state: userState<IUser>, action) => {
+    resetLoading: (state: userState<IUser>) => {
       state.loading = STATUS.IDLE;
     },
   },

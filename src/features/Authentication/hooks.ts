@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../entities/user/model/actions';
-import { RootState } from '../../shared/lib/store/store';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../shared/lib/store/store';
 
 import { AuthJWT } from './thunk';
 
 export const useAuth = () => {
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const {
     loading,
     essence: user,
