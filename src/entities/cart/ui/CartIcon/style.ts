@@ -36,5 +36,6 @@ export const CartIconCircle = styled.div<CartIconProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${setAnimationCircle}
+  ${({ activatedAnimation }) =>
+    activatedAnimation ? setAnimationCircle() : ''}
 `;

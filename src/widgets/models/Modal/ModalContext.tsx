@@ -24,7 +24,7 @@ interface ModalOpenButtonProps {
 export const ModalOpenButton: FC<{
   children: (props: ModalOpenButtonProps) => ReactElement;
 }> = ({ children }) => {
-  const { isOpen, setIsOpen } = React.useContext(ModalContext);
+  const { setIsOpen } = React.useContext(ModalContext);
 
   return children({
     setIsOpen: () => setIsOpen(true),

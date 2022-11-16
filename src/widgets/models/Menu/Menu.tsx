@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Login } from '../../../features/Authentication/thunk';
 import { AuthForm } from '../../../features/Authentication/ui/AuthForm/AuthForm';
 import {
@@ -22,7 +22,7 @@ export interface MenuItemsContainerProps {
   flex?: boolean;
 }
 
-export const Menu = () => {
+export const Menu = forwardRef((props, ref) => {
   const { loading } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
@@ -37,39 +37,41 @@ export const Menu = () => {
   };
 
   return (
-    <MenuContainer>
-      <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
-        <div>LOGO</div>
-        <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
-          <NavItem to={'/'}>Products</NavItem>
-          <NavItem to={'/category'}>Category</NavItem>
-        </MenuItemsContainer>
-        <FlexContainer space="MD" align="CENTER" justify="END">
-          <Modal>
-            <ModalContents>
-              <h2 style={{ textAlign: 'center' }}>Login</h2>
-              <AuthForm status={loading}>
+    <>
+      <MenuContainer ref={ref}>
+        <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
+          <div>LOGO</div>
+          <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
+            <NavItem to={'/'}>Products</NavItem>
+            <NavItem to={'/category'}>Category</NavItem>
+          </MenuItemsContainer>
+          <FlexContainer space="MD" align="CENTER" justify="END">
+            <Modal>
+              <ModalContents>
+                <h2 style={{ textAlign: 'center' }}>Login</h2>
+                <AuthForm status={loading}>
+                  {(props) => (
+                    <Button
+                      onClick={() => login(props.login())}
+                      type="submit"
+                      variant={COLORS.PRIMARY}
+                    >
+                      Login
+                    </Button>
+                  )}
+                </AuthForm>
+              </ModalContents>
+              <ModalOpenButton>
                 {(props) => (
-                  <Button
-                    onClick={() => login(props.login())}
-                    type="submit"
-                    variant={COLORS.PRIMARY}
-                  >
-                    Login
+                  <Button onClick={props.setIsOpen} variant={COLORS.SECONDARY}>
+                    Sign in
                   </Button>
                 )}
-              </AuthForm>
-            </ModalContents>
-            <ModalOpenButton>
-              {(props) => (
-                <Button onClick={props.setIsOpen} variant={COLORS.SECONDARY}>
-                  Sign in
-                </Button>
-              )}
-            </ModalOpenButton>
-          </Modal>
+              </ModalOpenButton>
+            </Modal>
+          </FlexContainer>
         </FlexContainer>
-      </FlexContainer>
-    </MenuContainer>
+      </MenuContainer>
+    </>
   );
-};
+});

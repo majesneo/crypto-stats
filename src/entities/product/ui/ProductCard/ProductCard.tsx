@@ -28,6 +28,10 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
   const { essence: user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
+  const handleAddToCart = () => {
+    addToCart();
+  };
+
   const login = ({
     email,
     password,
@@ -71,7 +75,7 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
         <ModalOpenButton>
           {(props) => (
             <Button
-              onClick={!user ? props.setIsOpen : addToCart}
+              onClick={!user ? props.setIsOpen : handleAddToCart}
               isFullWidth
               variant={COLORS.PRIMARY}
             >

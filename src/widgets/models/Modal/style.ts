@@ -13,6 +13,7 @@ export const StyledModalBackground = styled.div<StyledModalBackgroundI>`
 `;
 
 export const StyledModalContent = styled.div<StyledModalContentI>`
+  font-family: 'San Francisco';
   font-size: 20px;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   width: fit-content;

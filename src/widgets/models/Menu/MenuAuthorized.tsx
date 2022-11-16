@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartIcon from '../../../entities/cart/ui/CartIcon/CartIcon';
 import { Logout, resetLoading } from '../../../entities/user/model/actions';
+import { useSetAnimationQuantity } from '../../../shared/lib/hooks/useSticky';
 import {
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
 import { Button } from '../../../shared/ui/components/button/Button';
@@ -13,7 +14,7 @@ import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
   SIZE,
-  SPACING_MAP,
+  SPACING_MAP
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
@@ -24,9 +25,14 @@ export interface MenuItemsContainerProps {
   flex?: boolean;
 }
 
-export const MenuAuthorized = () => {
+export const MenuAuthorized = forwardRef((props, ref) => {
+  const { essence: cartProduct } = useAppSelector((state) => state.cart);
   const { essence: user } = useAppSelector((state) => state.user);
 
+  const quantityProduct = useMemo(
+    () => Object.keys(cartProduct).length,
+    [cartProduct]
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = () => {
@@ -38,17 +44,25 @@ export const MenuAuthorized = () => {
     }, 500);
   };
 
+  const { activatedAnimation } = useSetAnimationQuantity(quantityProduct)
+
   return (
     <>
-      {user && (
-        <MenuContainer>
+      {user &&
+        <MenuContainer ref={ref}>
           <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
             <div>LOGO</div>
             <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
               <NavItem to={'/'}>Products</NavItem>
               <NavItem to={'/category'}>Category</NavItem>
               <NavItem to={'/cart'}>
-                <CartIcon widthIcon={'25px'} heightIcon={'25px'} />
+                <CartIcon
+                  activatedAnimation={activatedAnimation}
+                  widthIcon={'25px'}
+                  heightIcon={'25px'}
+                >
+                  {quantityProduct}
+                </CartIcon>
               </NavItem>
             </MenuItemsContainer>
             <FlexContainer space="MD" align="CENTER" justify="END">
@@ -64,7 +78,7 @@ export const MenuAuthorized = () => {
             </FlexContainer>
           </FlexContainer>
         </MenuContainer>
-      )}
+      }
     </>
   );
-};
+});

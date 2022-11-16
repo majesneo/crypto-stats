@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { CloseModal } from './CloseModal';
 import { StyledModalContent, StyledModalWrapper } from './style';
 
@@ -20,22 +20,6 @@ export const ModalContent: FC<IModalContent> = ({
   const useClose = () => {
     closeModal();
   };
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-    console.log('hidden');
-
-    document.body.style.overflowY = 'hidden';
-
-    return () => {
-      console.log('unmounte');
-
-      document.body.style.overflowY = 'scroll';
-    };
-  }, [isOpen]);
-
   return (
     <StyledModalContent isOpen={isOpen}>
       <StyledModalWrapper>
