@@ -29,6 +29,9 @@ export const userSlice = createSlice({
     resetLoading: (state: userState<IUser>) => {
       state.loading = STATUS.IDLE;
     },
+    resetError: (state: userState<IUser>) => {
+      state.error = '';
+    },
   },
   extraReducers: (builder) => {
     builder

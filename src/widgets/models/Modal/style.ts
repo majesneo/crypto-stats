@@ -34,4 +34,6 @@ export const StyledModalWrapper = styled.div`
   gap: 2rem;
   display: flex;
   flex-direction: column;
+  width: 335px;
+  height: 286;
 `;

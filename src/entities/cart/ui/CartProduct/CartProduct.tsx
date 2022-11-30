@@ -23,12 +23,17 @@ const CartProduct: FC<ICartProduct> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const checkMaxAmount = (amount: number) => {
+    return amount >= 10 ? 10 : amount;
+  };
+
   const removeProduct = (id: number) => {
     dispatch(removeFromCart({ id }));
   };
 
   function handleAmount(amount: number) {
-    dispatch(setAmount({ id, amount: amount }));
+    const currentAmount = checkMaxAmount(amount);
+    dispatch(setAmount({ id, amount: currentAmount }));
   }
 
   return (

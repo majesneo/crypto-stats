@@ -1,47 +1,95 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
-import { STATUS } from '../../../../shared/constants/constants';
+import {
+  FastField,
+  FieldProps,
+  Formik,
+  FormikHelpers,
+  FormikProps,
+} from 'formik';
+import React, { FC } from 'react';
+import * as Yup from 'yup';
+import { Button } from '../../../../shared/ui/components/button/Button';
+import Error from '../../../../shared/ui/components/Error/Error';
 import { Field } from '../../../../shared/ui/components/Field/FieldGroup';
+import { COLORS } from '../../../../shared/ui/constants/style';
 import { StyledForm } from './style';
-
-interface AuthFormProps {
-  login: () => {
-    email: string;
-    password: string;
-  };
-}
-
 export interface AuthFormI {
-  children: (props: AuthFormProps) => ReactElement;
+  onSubmit: ({ email, password }: { email: string; password: string }) => void;
 }
 
-export const AuthForm: FC<AuthFormI> = ({ children }) => {
-  const [email,setEmail]=useState('')
-  const [password,setPassword]=useState('')
+const validationSchema = Yup.object({
+  email: Yup.string().email().required(),
+  password: Yup.string().min(8).required(),
+});
 
-  function onSubmit() {
-    return {
-      password,
-      email
-    };
+interface Values {
+  email: string;
+  password: string;
+}
+
+export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
+  function onSubmitForm(values: Values, submitProps: FormikHelpers<Values>) {
+    submitProps.setSubmitting(false);
+    submitProps.resetForm();
+    props.onSubmit(values);
   }
 
   return (
-    <StyledForm onSubmit={onSubmit}>
-      <Field>
-        <Field.Label>Email</Field.Label>
-        <Field.Input 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} />
-      </Field>
-      <Field>
-        <Field.Label>Password</Field.Label>
-        <Field.Input value={password} 
-        onChange={(e)=>setPassword(e.target.value)} 
-        type="password" />
-      </Field>
-      {children({
-        login: () => onSubmit(),
-      })}
-    </StyledForm>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validationSchema={validationSchema}
+      onSubmit={onSubmitForm}
+    >
+      {(formik: FormikProps) => {
+        return (
+          <StyledForm onSubmit={(e) => e.preventDefault()}>
+            <FastField name="email" type="email">
+              {({ field, meta }: FieldProps) => {
+                return (
+                  <Field>
+                    <Field.Label>
+                      <Error
+                        label={'Email'}
+                        value={Boolean(meta.error && meta.touched)}
+                      >
+                        {meta.error}
+                      </Error>
+                    </Field.Label>
+                    <Field.Input {...field} type="email" />
+                  </Field>
+                );
+              }}
+            </FastField>
+            <FastField name="password" type="password">
+              {({ field, meta }: FieldProps) => {
+                return (
+                  <Field>
+                    <Field.Label>
+                      <Error
+                        label={'Password'}
+                        value={Boolean(meta.error && meta.touched)}
+                      >
+                        {meta.error}
+                      </Error>
+                    </Field.Label>
+                    <Field.Input {...field} name="password" type="password" />
+                  </Field>
+                );
+              }}
+            </FastField>
+            <Button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                formik.submitForm();
+              }}
+              disabled={formik.isSubmitting || !formik.isValid}
+              variant={COLORS.PRIMARY}
+            >
+              Login
+            </Button>
+          </StyledForm>
+        );
+      }}
+    </Formik>
   );
 };

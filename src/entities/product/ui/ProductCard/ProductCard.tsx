@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import ProgressiveImage from 'react-progressive-graceful-image';
+import { resetError } from '../../../../entities/user/model/actions';
 import { Login } from '../../../../features/Authentication/thunk';
 import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
+import { ERROR } from '../../../../shared/constants/constants';
+import { useResetErrorWithDelay } from '../../../../shared/lib/hooks/useResetErrorWithDelay';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../shared/lib/store/store';
+
 import { Button } from '../../../../shared/ui/components/button/Button';
+import Error from '../../../../shared/ui/components/Error/Error';
 import { ImgPlaceholder } from '../../../../shared/ui/components/ImgPlaceholder/ImgPlaceholder';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS } from '../../../../shared/ui/constants/style';
@@ -24,21 +29,15 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
   images,
   addToCart,
 }) => {
-  const { loading } = useAppSelector((state) => state.product);
   const { essence: user } = useAppSelector((state) => state.user);
+  const { error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
     addToCart();
   };
 
-  const login = ({
-    email,
-    password,
-  }: {
-    email?: string;
-    password?: string;
-  }) => {
+  const login = ({ email, password }: { email: string; password: string }) => {
     dispatch(Login({ email, password }));
   };
 
@@ -59,18 +58,14 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
       </Price>
       <Modal>
         <ModalContents>
-          <h2 style={{ textAlign: 'center' }}>Login</h2>
-          <AuthForm status={loading}>
-            {(props) => (
-              <Button
-                onClick={() => login(props.login())}
-                type="submit"
-                variant={COLORS.PRIMARY}
-              >
-                Login
-              </Button>
-            )}
-          </AuthForm>
+          {!error ? (
+            <h2 style={{ textAlign: 'center' }}>Login</h2>
+          ) : (
+            <Error value={Boolean(error)}>
+              <h1 style={{ textAlign: 'center' }}>{error}</h1>
+            </Error>
+          )}
+          <AuthForm onSubmit={login} />
         </ModalContents>
         <ModalOpenButton>
           {(props) => (

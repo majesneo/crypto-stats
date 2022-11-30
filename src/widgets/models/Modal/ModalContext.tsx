@@ -4,6 +4,7 @@ import React, {
   ReactElement,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -33,7 +34,6 @@ export const ModalOpenButton: FC<{
 
 export const Modal: FC<IModal> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <ModalContext.Provider value={{ isOpen, setIsOpen }} {...props}>
       {children}
@@ -44,11 +44,20 @@ interface IModal {
   children: ReactNode;
 }
 
-export const ModalContents: FC<{ children: ReactNode }> = ({
+export const ModalContents: FC<{ children: ReactNode; autoOpen?: boolean }> = ({
   children,
+  autoOpen = false,
   ...props
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
+
+  useEffect(() => {
+    if (autoOpen) {
+      setTimeout(() => {
+        setIsOpen(true);
+      }, 300);
+    }
+  }, [autoOpen, setIsOpen]);
 
   return createPortal(
     <>

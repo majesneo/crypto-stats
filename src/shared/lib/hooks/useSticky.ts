@@ -37,19 +37,3 @@ export const useStickyHeader = () => {
 
   return { refHeader, refAfterHeader };
 };
-
-
-export const useSetAnimationQuantity = (quantityProduct: number) => {
-  const isFirstRender = useRef(true);
-  const [activatedAnimation, setActivatedAnimation] = useState(false);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    setActivatedAnimation(true);
-    setTimeout(() => setActivatedAnimation(false), 500);
-  }, [quantityProduct]);
-  return { activatedAnimation }
-}

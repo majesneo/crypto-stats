@@ -1,11 +1,15 @@
 import React, { forwardRef } from 'react';
+import { resetError } from '../../../entities/user/model/actions';
 import { Login } from '../../../features/Authentication/thunk';
 import { AuthForm } from '../../../features/Authentication/ui/AuthForm/AuthForm';
+import { ERROR } from '../../../shared/constants/constants';
+import { useResetErrorWithDelay } from '../../../shared/lib/hooks/useResetErrorWithDelay';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../shared/lib/store/store';
 import { Button } from '../../../shared/ui/components/button/Button';
+import Error from '../../../shared/ui/components/Error/Error';
 import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
 import {
   COLORS,
@@ -23,8 +27,10 @@ export interface MenuItemsContainerProps {
 }
 
 export const Menu = forwardRef((props, ref) => {
-  const { loading } = useAppSelector((state) => state.product);
+  const { error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
+  useResetErrorWithDelay(error, ERROR.LOGIN, resetError, 4);
 
   const login = ({
     email,
@@ -47,19 +53,15 @@ export const Menu = forwardRef((props, ref) => {
           </MenuItemsContainer>
           <FlexContainer space="MD" align="CENTER" justify="END">
             <Modal>
-              <ModalContents>
-                <h2 style={{ textAlign: 'center' }}>Login</h2>
-                <AuthForm status={loading}>
-                  {(props) => (
-                    <Button
-                      onClick={() => login(props.login())}
-                      type="submit"
-                      variant={COLORS.PRIMARY}
-                    >
-                      Login
-                    </Button>
-                  )}
-                </AuthForm>
+              <ModalContents autoOpen={Boolean(error)}>
+                {!error ? (
+                  <h2 style={{ textAlign: 'center' }}>Login</h2>
+                ) : (
+                  <Error value={Boolean(error)}>
+                    <h1 style={{ textAlign: 'center' }}>{error}</h1>
+                  </Error>
+                )}
+                <AuthForm onSubmit={login} />
               </ModalContents>
               <ModalOpenButton>
                 {(props) => (

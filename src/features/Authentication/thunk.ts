@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { IUser } from '../../entities/user/model/constants';
 import { Fetcher } from '../../shared/api/models/api';
 import { Axios } from '../../shared/api/models/axios';
+import { ERROR } from '../../shared/constants/constants';
 import { BASE_URL_AUTH, URL_AUTH, URL_AUTH_CURRENT_SESSION } from './constants';
 
 const api = new Fetcher(new Axios(BASE_URL_AUTH));
@@ -22,7 +23,7 @@ export const Login = createAsyncThunk<
     return data.access_token;
   } catch (e) {
     console.error(e);
-    return rejectWithValue('Fail AuthJWT');
+    return rejectWithValue(ERROR.LOGIN);
   }
 });
 

@@ -29,8 +29,8 @@ export const CartIconCircle = styled.div<CartIconProps>`
   background-color: red;
   border-radius: 20px;
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 1.5rem;
+  height: 1.5rem;
   top: -5px;
   left: 16px;
   display: flex;

@@ -6,6 +6,9 @@ export const Input: FC<React.ComponentPropsWithoutRef<'input'>> = forwardRef<
   HTMLInputElement & React.ComponentPropsWithoutRef<'input'>
 >((props, ref) => {
   const id = useContext(FieldContext);
-
-  return <StyledInput ref={ref} id={id} {...props} />;
+  return (
+    <>
+      <StyledInput ref={ref} id={id} {...props} />
+    </>
+  );
 });

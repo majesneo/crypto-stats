@@ -10,7 +10,6 @@ export const Cart: FC = () => {
   const cartProducts = Object.values(essence);
 
   const totalPrice = useMemo(() => {
-    console.log('totalPrice');
     return cartProducts.reduce((prev, cur) => prev + cur.price * cur.amount, 0);
   }, [cartProducts]);
 

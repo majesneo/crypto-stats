@@ -1,11 +1,11 @@
 import React, { forwardRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetAnimationQuantity } from '../../../entities/cart/model/hooks';
 import CartIcon from '../../../entities/cart/ui/CartIcon/CartIcon';
 import { Logout, resetLoading } from '../../../entities/user/model/actions';
-import { useSetAnimationQuantity } from '../../../shared/lib/hooks/useSticky';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from '../../../shared/lib/store/store';
 import { Avatar } from '../../../shared/ui/components/Avatar/Avatar';
 import { Button } from '../../../shared/ui/components/button/Button';
@@ -14,7 +14,7 @@ import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
   SIZE,
-  SPACING_MAP
+  SPACING_MAP,
 } from '../../../shared/ui/constants/style';
 import { FlexContainer, MenuContainer, MenuItemsContainer } from './style';
 
@@ -28,11 +28,11 @@ export interface MenuItemsContainerProps {
 export const MenuAuthorized = forwardRef((props, ref) => {
   const { essence: cartProduct } = useAppSelector((state) => state.cart);
   const { essence: user } = useAppSelector((state) => state.user);
-
-  const quantityProduct = useMemo(
-    () => Object.keys(cartProduct).length,
-    [cartProduct]
+  const quantityProduct = Object.values(cartProduct).reduce(
+    (acc, curr) => acc + curr.amount,
+    0
   );
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = () => {
@@ -44,11 +44,11 @@ export const MenuAuthorized = forwardRef((props, ref) => {
     }, 500);
   };
 
-  const { activatedAnimation } = useSetAnimationQuantity(quantityProduct)
+  const { activatedAnimation } = useSetAnimationQuantity(quantityProduct);
 
   return (
     <>
-      {user &&
+      {user && (
         <MenuContainer ref={ref}>
           <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
             <div>LOGO</div>
@@ -78,7 +78,7 @@ export const MenuAuthorized = forwardRef((props, ref) => {
             </FlexContainer>
           </FlexContainer>
         </MenuContainer>
-      }
+      )}
     </>
   );
 });
