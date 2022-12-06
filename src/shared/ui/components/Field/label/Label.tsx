@@ -1,13 +1,19 @@
-import React, { FC, forwardRef, useContext } from 'react';
+import {
+  DetailedHTMLProps,
+  forwardRef,
+  LabelHTMLAttributes,
+  useContext,
+} from 'react';
 import { FieldContext } from '../FieldGroup';
 
-export const Label: FC<React.ComponentPropsWithoutRef<'label'>> = forwardRef<
-  HTMLLabelElement & React.ComponentPropsWithoutRef<'label'>
+export const Label = forwardRef<
+  HTMLLabelElement,
+  DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
 >((props, ref) => {
   const id = useContext(FieldContext);
 
   return (
-    <label id={id} ref={ref} {...props}>
+    <label htmlFor={id} {...ref} {...props}>
       {props.children}
     </label>
   );

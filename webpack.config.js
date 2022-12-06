@@ -1,12 +1,12 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/app/index.tsx',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
   },
   module: {
     rules: [
@@ -14,19 +14,19 @@ module.exports = {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
             ],
           },
         },
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -39,18 +39,21 @@ module.exports = {
             name: './fonts/[name].[ext]',
           },
         },
-      }
+      },
+      {
+        test: /\.test$/,
+        exclude: [path.resolve(__dirname, 'src/shared/lib/test-utils')],
+      },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"]
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src/app/", "index.html")
+      template: path.resolve(__dirname, 'src/app/', 'index.html'),
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
   ],
-}
-
-
+};

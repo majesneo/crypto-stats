@@ -1,14 +1,23 @@
-import React, { FC, forwardRef, useContext } from 'react';
+import React, {
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ForwardRefExoticComponent,
+  useContext,
+} from 'react';
 import { FieldContext } from '../FieldGroup';
 import { StyledInput } from './style';
 
-export const Input: FC<React.ComponentPropsWithoutRef<'input'>> = forwardRef<
-  HTMLInputElement & React.ComponentPropsWithoutRef<'input'>
->((props, ref) => {
-  const id = useContext(FieldContext);
-  return (
-    <>
-      <StyledInput ref={ref} id={id} {...props} />
-    </>
-  );
-});
+type InputProps = ComponentPropsWithoutRef<'input'> & {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const Input: ForwardRefExoticComponent<InputProps> = forwardRef(
+  (props, ref) => {
+    const id = useContext(FieldContext);
+    return (
+      <>
+        <StyledInput {...ref} id={id} {...props} />
+      </>
+    );
+  }
+);

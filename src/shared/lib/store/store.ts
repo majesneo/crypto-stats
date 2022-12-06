@@ -1,4 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  PreloadedState,
+} from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import {
   persistReducer,
@@ -15,7 +19,7 @@ import { cartSlice } from '../../../entities/cart/model/slice';
 import { productSlice } from '../../../entities/product/model/slice';
 import { userSlice } from '../../../entities/user/model/slice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   product: productSlice.reducer,
   user: userSlice.reducer,
   cart: cartSlice.reducer,
@@ -33,8 +37,16 @@ export const store = configureStore({
     }),
 });
 
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
+
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch: () => AppDispatch = useDispatch;

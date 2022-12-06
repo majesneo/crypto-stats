@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const stickyCssProp = `position: fixed;
     top: 0;
@@ -6,9 +6,12 @@ const stickyCssProp = `position: fixed;
     background-color: white; 
     box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);`;
 
-export const useStickyHeader = () => {
-  const refHeader = useRef<HTMLElement>(null);
-  const refAfterHeader = useRef<HTMLElement>(null);
+export const useStickyHeader = <
+  H extends HTMLElement,
+  A extends HTMLElement
+>() => {
+  const refHeader = useRef<H>(null);
+  const refAfterHeader = useRef<A>(null);
 
   useEffect(() => {
     const headerEl = refHeader.current;

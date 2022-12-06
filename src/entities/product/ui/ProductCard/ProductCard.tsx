@@ -1,10 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import ProgressiveImage from 'react-progressive-graceful-image';
-import { resetError } from '../../../../entities/user/model/actions';
 import { Login } from '../../../../features/Authentication/thunk';
 import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
-import { ERROR } from '../../../../shared/constants/constants';
-import { useResetErrorWithDelay } from '../../../../shared/lib/hooks/useResetErrorWithDelay';
 import {
   useAppDispatch,
   useAppSelector,
@@ -18,8 +15,8 @@ import { COLORS } from '../../../../shared/ui/constants/style';
 import {
   Modal,
   ModalContents,
-  ModalOpenButton,
 } from '../../../../widgets/models/Modal/ModalContext';
+import { ModalOpenButton } from '../../../../widgets/models/Modal/ModalOpenButton';
 import { IProduct } from '../../model/constants';
 import { Price, ProductContainer, Title, Val } from './style';
 
@@ -29,8 +26,7 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
   images,
   addToCart,
 }) => {
-  const { essence: user } = useAppSelector((state) => state.user);
-  const { error } = useAppSelector((state) => state.user);
+  const { essence: user, error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
@@ -44,9 +40,9 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
   return (
     <ProductContainer>
       <Photo ratio={[1, 1]}>
-        <ProgressiveImage src={images[0]} placeholder="">
+        <ProgressiveImage src={images[0]} placeholder=''>
           {(src, loading) =>
-            loading ? <ImgPlaceholder /> : <img src={src} alt="product" />
+            loading ? <ImgPlaceholder /> : <img src={src} alt='product' />
           }
         </ProgressiveImage>
       </Photo>
@@ -65,7 +61,7 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
               <h1 style={{ textAlign: 'center' }}>{error}</h1>
             </Error>
           )}
-          <AuthForm onSubmit={login} />
+          <AuthForm error={error} onSubmit={login} />
         </ModalContents>
         <ModalOpenButton>
           {(props) => (

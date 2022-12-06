@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, ForwardRefExoticComponent, Ref } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetAnimationQuantity } from '../../../entities/cart/model/hooks';
 import CartIcon from '../../../entities/cart/ui/CartIcon/CartIcon';
@@ -25,7 +25,9 @@ export interface MenuItemsContainerProps {
   flex?: boolean;
 }
 
-export const MenuAuthorized = forwardRef((props, ref) => {
+export const MenuAuthorized: ForwardRefExoticComponent<{
+  ref: Ref<HTMLDivElement>;
+}> = forwardRef((props, ref) => {
   const { essence: cartProduct } = useAppSelector((state) => state.cart);
   const { essence: user } = useAppSelector((state) => state.user);
   const quantityProduct = Object.values(cartProduct).reduce(
@@ -50,9 +52,9 @@ export const MenuAuthorized = forwardRef((props, ref) => {
     <>
       {user && (
         <MenuContainer ref={ref}>
-          <FlexContainer justify="CENTER" space="NONE" flex align="CENTER">
+          <FlexContainer justify='CENTER' space='NONE' flex align='CENTER'>
             <div>LOGO</div>
-            <MenuItemsContainer space="LG" justify="CENTER" align="CENTER">
+            <MenuItemsContainer space='LG' justify='CENTER' align='CENTER'>
               <NavItem to={'/'}>Products</NavItem>
               <NavItem to={'/category'}>Category</NavItem>
               <NavItem to={'/cart'}>
@@ -65,7 +67,7 @@ export const MenuAuthorized = forwardRef((props, ref) => {
                 </CartIcon>
               </NavItem>
             </MenuItemsContainer>
-            <FlexContainer space="MD" align="CENTER" justify="END">
+            <FlexContainer space='MD' align='CENTER' justify='END'>
               <Avatar src={user.avatar} />
               <div>{user.name}</div>
               <Button

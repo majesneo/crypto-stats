@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useStickyHeader } from '../../shared/lib/hooks/useSticky';
-
 import { MenuAuthorized } from '../../widgets/models/Menu/MenuAuthorized';
+import { useStickyHeader } from '../lib/hooks/useSticky';
 
 export const LayoutAuth: FC = () => {
-  const { refHeader, refAfterHeader } = useStickyHeader();
+  const { refHeader, refAfterHeader } = useStickyHeader<
+    HTMLDivElement,
+    HTMLDivElement
+  >();
   return (
     <>
       <MenuAuthorized ref={refHeader} />

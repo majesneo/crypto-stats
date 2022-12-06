@@ -4,7 +4,10 @@ import { useStickyHeader } from '../../shared/lib/hooks/useSticky';
 import { Menu } from '../../widgets/models/Menu/Menu';
 
 export const LayoutDefault: FC = () => {
-  const { refHeader, refAfterHeader } = useStickyHeader();
+  const { refHeader, refAfterHeader } = useStickyHeader<
+    HTMLDivElement,
+    HTMLDivElement
+  >();
   return (
     <>
       <Menu ref={refHeader} />

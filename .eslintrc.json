@@ -20,7 +20,10 @@
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
   "settings": {
     "extensions": [".js", ".jsx", ".ts", ".tsx"]
