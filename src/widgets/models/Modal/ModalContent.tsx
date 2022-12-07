@@ -10,9 +10,13 @@ export interface IModalContent {
   children?: ReactNode;
 }
 
-export const ModalContent: FC<IModalContent> = ({ children, isOpen }) => {
+export const ModalContent: FC<IModalContent> = ({
+  children,
+  isOpen,
+  ...props
+}) => {
   return (
-    <StyledModalContent isOpen={isOpen}>
+    <StyledModalContent {...props} isOpen={isOpen}>
       <StyledModalWrapper>{children}</StyledModalWrapper>
     </StyledModalContent>
   );

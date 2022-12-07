@@ -4,6 +4,7 @@ import {
   LabelHTMLAttributes,
   useContext,
 } from 'react';
+import React from 'react';
 import { FieldContext } from '../FieldGroup';
 
 export const Label = forwardRef<

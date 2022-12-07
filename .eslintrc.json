@@ -23,7 +23,14 @@
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ]
   },
   "settings": {
     "extensions": [".js", ".jsx", ".ts", ".tsx"]

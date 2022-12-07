@@ -6,6 +6,7 @@ import {
   FormikProps,
 } from 'formik';
 import { FC } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { Button } from '../../../../shared/ui/components/button/Button';
 import Error from '../../../../shared/ui/components/Error/Error';
@@ -59,7 +60,11 @@ export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
                           {meta.error}
                         </Error>
                       </Field.Label>
-                      <Field.Input {...field} type='email' />
+                      <Field.Input
+                        placeholder='Email'
+                        {...field}
+                        type='email'
+                      />
                     </Field>
                   );
                 }}
@@ -76,7 +81,11 @@ export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
                           {meta.error}
                         </Error>
                       </Field.Label>
-                      <Field.Input {...field} type='password' />
+                      <Field.Input
+                        placeholder='Password'
+                        {...field}
+                        type='password'
+                      />
                     </Field>
                   );
                 }}

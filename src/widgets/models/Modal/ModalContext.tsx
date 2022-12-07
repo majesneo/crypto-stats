@@ -28,13 +28,12 @@ interface IModal {
   children: ReactNode;
 }
 
-export const ModalContents: FC<{ children: ReactNode }> = ({
+export const ModalContents: FC<{ children?: ReactNode }> = ({
   children,
   ...props
 }) => {
   const { isOpen, setIsOpen } = useContext(ModalContext);
   const rootElement = document.createElement('div');
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const rootModalElement = document.getElementById('rootModal')!;
 
   useEffect(() => {

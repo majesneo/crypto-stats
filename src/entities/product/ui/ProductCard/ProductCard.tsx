@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import React from 'react';
 import ProgressiveImage from 'react-progressive-graceful-image';
 import { Login } from '../../../../features/Authentication/thunk';
 import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
