@@ -4,6 +4,7 @@ import ProgressiveImage from 'react-progressive-graceful-image';
 import { resetError } from '../../../../entities/user/model/actions';
 import { Login } from '../../../../features/Authentication/thunk';
 import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
+import { STATUS } from '../../../../shared/constants/constants';
 import {
   useAppDispatch,
   useAppSelector,
@@ -13,6 +14,7 @@ import { Button } from '../../../../shared/ui/components/button/Button';
 import { CloseIcon } from '../../../../shared/ui/components/Icons/CloseIcon/Index';
 import { ImgPlaceholder } from '../../../../shared/ui/components/ImgPlaceholder/ImgPlaceholder';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
+import { Spinner } from '../../../../shared/ui/components/Spinner/Spinner';
 import { COLORS } from '../../../../shared/ui/constants/style';
 import { ModalBackground } from '../../../../widgets/models/Modal/ModalBackground';
 import { ModalCloseButton } from '../../../../widgets/models/Modal/ModalCloseButton';
@@ -31,7 +33,11 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
   images,
   addToCart,
 }) => {
-  const { essence: user, error } = useAppSelector((state) => state.user);
+  const {
+    essence: user,
+    error,
+    loading,
+  } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const resetErrorHandle = () => dispatch(resetError());
   const handleAddToCart = () => {
@@ -81,6 +87,7 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
             )}
           </ModalCloseButton>
           <h2 style={{ textAlign: 'center' }}>Login</h2>
+          {loading === STATUS.LOADING && <Spinner isFullContent={true} />}
           <AuthForm error={error} onSubmit={login} />
         </ModalContents>
         <ModalOpenButton>

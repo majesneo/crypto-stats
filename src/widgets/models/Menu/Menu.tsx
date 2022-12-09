@@ -63,7 +63,7 @@ export const Menu: ForwardRefExoticComponent<MenuI> = forwardRef(
               <NavItem to={'/category'}>Category</NavItem>
             </MenuItemsContainer>
             <FlexContainer space='MD' align='CENTER' justify='END'>
-              <Modal autoOpen={Boolean(error)}>
+              <Modal>
                 <ModalBackground>
                   {(props) => (
                     <StyledModalBackground
