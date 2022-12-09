@@ -1,14 +1,11 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { StyledError } from './style';
 
 type Props = {
   value: boolean;
-  children?: ReactNode;
-  label?: string;
+  error?: string;
 };
 
-export default function Error({ label, value, children }: Props) {
-  return (
-    <>{value ? <StyledError>{children}</StyledError> : label ? label : null}</>
-  );
+export default function Error({ value, error }: Props) {
+  return <>{value ? <StyledError>{error}</StyledError> : null}</>;
 }

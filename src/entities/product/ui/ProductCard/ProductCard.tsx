@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import React from 'react';
 import ProgressiveImage from 'react-progressive-graceful-image';
+import { resetError } from '../../../../entities/user/model/actions';
 import { Login } from '../../../../features/Authentication/thunk';
 import { AuthForm } from '../../../../features/Authentication/ui/AuthForm/AuthForm';
 import {
@@ -9,15 +10,18 @@ import {
 } from '../../../../shared/lib/store/store';
 
 import { Button } from '../../../../shared/ui/components/button/Button';
-import Error from '../../../../shared/ui/components/Error/Error';
+import { CloseIcon } from '../../../../shared/ui/components/Icons/CloseIcon/Index';
 import { ImgPlaceholder } from '../../../../shared/ui/components/ImgPlaceholder/ImgPlaceholder';
 import { Photo } from '../../../../shared/ui/components/Photo/Photo';
 import { COLORS } from '../../../../shared/ui/constants/style';
+import { ModalBackground } from '../../../../widgets/models/Modal/ModalBackground';
+import { ModalCloseButton } from '../../../../widgets/models/Modal/ModalCloseButton';
 import {
   Modal,
   ModalContents,
 } from '../../../../widgets/models/Modal/ModalContext';
 import { ModalOpenButton } from '../../../../widgets/models/Modal/ModalOpenButton';
+import { StyledModalBackground } from '../../../../widgets/models/Modal/style';
 import { IProduct } from '../../model/constants';
 import { Price, ProductContainer, Title, Val } from './style';
 
@@ -29,7 +33,7 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
 }) => {
   const { essence: user, error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-
+  const resetErrorHandle = () => dispatch(resetError());
   const handleAddToCart = () => {
     addToCart();
   };
@@ -54,14 +58,29 @@ export const ProductCard: FC<IProduct & { addToCart: () => void }> = ({
         </Val>
       </Price>
       <Modal>
-        <ModalContents>
-          {!error ? (
-            <h2 style={{ textAlign: 'center' }}>Login</h2>
-          ) : (
-            <Error value={Boolean(error)}>
-              <h1 style={{ textAlign: 'center' }}>{error}</h1>
-            </Error>
+        <ModalBackground>
+          {(props) => (
+            <StyledModalBackground
+              isOpen={props.isOpen}
+              onClick={() => {
+                props.setIsOpen();
+                resetErrorHandle();
+              }}
+            />
           )}
+        </ModalBackground>
+        <ModalContents>
+          <ModalCloseButton>
+            {(props) => (
+              <CloseIcon
+                onClick={() => {
+                  props.setIsOpen();
+                  resetErrorHandle();
+                }}
+              />
+            )}
+          </ModalCloseButton>
+          <h2 style={{ textAlign: 'center' }}>Login</h2>
           <AuthForm error={error} onSubmit={login} />
         </ModalContents>
         <ModalOpenButton>

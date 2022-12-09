@@ -4,7 +4,7 @@ import { ProductContainer } from '../../entities/product/ui/ProductContainer/Pro
 export const Products: FC = () => {
   return (
     <>
-      <ProductContainer spacing="XL" minItemWidth="24rem" />
+      <ProductContainer spacing='XL' minItemWidth='24rem' />
     </>
   );
 };

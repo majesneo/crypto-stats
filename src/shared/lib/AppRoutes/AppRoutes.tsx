@@ -14,16 +14,16 @@ export const AppRoutes = () => {
       <Routes>
         {user && (
           <Route element={<LayoutAuth />}>
-            <Route path="/" element={<Products />} />
-            <Route path="/category" element={<Navigate to="/" replace />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path='/' element={<Products />} />
+            <Route path='/category' element={<Navigate to='/' replace />} />
+            <Route path='/cart' element={<Cart />} />
           </Route>
         )}
         <Route element={<LayoutDefault />}>
-          <Route path="/" element={<Products />} />
-          <Route path="/category" element={<Navigate to="/" replace />} />
+          <Route path='/' element={<Products />} />
+          <Route path='/category' element={<Navigate to='/' replace />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </BrowserRouter>
   );

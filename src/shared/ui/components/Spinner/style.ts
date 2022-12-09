@@ -7,14 +7,26 @@ const setFullPageStyle = () => {
     font-size: 4em;
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
   `;
 };
 
-export const FullPageSpinnerStyle = styled.div<ISpinner>`
+const setFullContent = () => {
+  return css`
+    position: absolute;
+    font-size: 4em;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+};
+
+export const ContainerSpinner = styled.div<ISpinner>`
   ${({ isFullWidth }) => isFullWidth && setFullPageStyle()}
+  ${({ isFullContent }) => isFullContent && setFullContent()}
 `;
 
 const spin = keyframes({

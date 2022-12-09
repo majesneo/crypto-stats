@@ -18,6 +18,11 @@ export const ModalContext = createContext({
 
 export const Modal: FC<IModal> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
+  if (props.autoOpen) {
+    setTimeout(() => {
+      setIsOpen(true);
+    });
+  }
   return (
     <ModalContext.Provider value={{ isOpen, setIsOpen }} {...props}>
       {children}
@@ -26,6 +31,7 @@ export const Modal: FC<IModal> = ({ children, ...props }) => {
 };
 interface IModal {
   children: ReactNode;
+  autoOpen?: boolean;
 }
 
 export const ModalContents: FC<{ children?: ReactNode }> = ({

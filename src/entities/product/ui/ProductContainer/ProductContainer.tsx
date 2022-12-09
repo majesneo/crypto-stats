@@ -2,12 +2,10 @@ import React, { FC } from 'react';
 import { addToCart, setAmount } from '../../../../entities/cart/model/actions';
 import { IProduct } from '../../../../entities/product/model/constants';
 import { useGetProducts } from '../../../../entities/product/model/hooks';
-import { STATUS } from '../../../../shared/constants/constants';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../shared/lib/store/store';
-import { Spinner } from '../../../../shared/ui/components/Spinner/Spinner';
 import { SPACING_MAP } from '../../../../shared/ui/constants/style';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { StyledGridContainer } from './style';
@@ -23,7 +21,7 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { essence: cartProduct } = useAppSelector((state) => state.cart);
-  const { loading, products } = useGetProducts();
+  const { products } = useGetProducts();
 
   const handleAddToCart = (product: IProduct) => {
     if (!cartProduct[product.id]) {
@@ -37,10 +35,6 @@ export const ProductContainer: FC<StyledGridContainerProps> = ({
       );
     }
   };
-
-  if (loading === STATUS.LOADING) {
-    return <Spinner isFullWidth />;
-  }
 
   return (
     <StyledGridContainer spacing={spacing} minItemWidth={minItemWidth}>

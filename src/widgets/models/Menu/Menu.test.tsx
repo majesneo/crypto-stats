@@ -1,13 +1,7 @@
-/*
-TODO
-Check that the button in the ModalOpenButton component is active and triggers the correct actions.
-Check that the AuthForm component in the ModalContents component has the correct property
-errors and triggers the correct actions on submit
- */
-
 import { describe, jest, test } from '@jest/globals';
-import { fireEvent } from '@testing-library/dom';
+import { fireEvent, waitFor } from '@testing-library/dom';
 import { render } from '@testing-library/react';
+import { AuthForm } from '../../../features/Authentication/ui/AuthForm/AuthForm';
 import { renderWithProviders } from '../../../shared/lib/test-utils/renderWithProviders';
 import { Button } from '../../../shared/ui/components/button/Button';
 import { CloseIcon } from '../../../shared/ui/components/Icons/CloseIcon/Index';
@@ -23,8 +17,6 @@ describe('Menu', () => {
     const mockRef = jest.fn();
     renderWithProviders(<Menu ref={mockRef} />);
   });
-
-  afterEach(() => {});
 
   test('fakeTest', () => {});
 
@@ -202,15 +194,69 @@ describe('Menu', () => {
     });
   });
 
-  // test('Should change email', () => {
-  //   const EMAIL = 'Email';
+  describe('AuthForm', () => {
+    const ERROR_WEN_PASSWORD_INVALID = 'password must be at least 8 characters';
+    const ERROR_WEN_EMAIL_INVALID = 'email must be a valid email';
+    const PLACEHOLDER_EMAIL = 'Email';
+    const PLACEHOLDER_PASSWORD = 'Password';
+    const VALID_EMAIL = 'test@example.com';
+    const INVALID_EMAIL = 'invalid';
+    const VALID_PASSWORD = 'password123';
+    const INVALID_PASSWORD = '1234567';
+    const SUBMIT_BUTTON = 'Login';
+    const mockOnSubmit = jest.fn();
 
-  //   expect(screen.getByPlaceholderText(EMAIL));
-  // });
+    it('Should submit the form and call the onSubmit prop with the entered values', async () => {
+      const { getByPlaceholderText, getByText } = render(
+        <AuthForm onSubmit={mockOnSubmit} />
+      );
 
-  // test('Should change password', () => {
-  //   const PASSWORD = 'Password';
+      const emailInput = getByPlaceholderText(PLACEHOLDER_EMAIL);
+      const passwordInput = getByPlaceholderText(PLACEHOLDER_PASSWORD);
+      const submitButton = getByText(SUBMIT_BUTTON);
 
-  //   expect(screen.getByPlaceholderText(PASSWORD));
-  // });
+      fireEvent.change(emailInput, { target: { value: VALID_EMAIL } });
+      fireEvent.change(passwordInput, { target: { value: VALID_PASSWORD } });
+      fireEvent.click(submitButton);
+
+      await waitFor(() =>
+        expect(mockOnSubmit).toHaveBeenCalledWith({
+          email: VALID_EMAIL,
+          password: VALID_PASSWORD,
+        })
+      );
+    });
+
+    it('Should show an error if the form is submitted with an invalid email', async () => {
+      const { getByPlaceholderText, getByText } = render(
+        <AuthForm onSubmit={mockOnSubmit} />
+      );
+
+      const emailInput = getByPlaceholderText(PLACEHOLDER_EMAIL);
+      const passwordInput = getByPlaceholderText(PLACEHOLDER_PASSWORD);
+      const submitButton = getByText(SUBMIT_BUTTON);
+
+      fireEvent.change(emailInput, { target: { value: INVALID_EMAIL } });
+      fireEvent.change(passwordInput, { target: { value: VALID_PASSWORD } });
+      fireEvent.click(submitButton);
+
+      await waitFor(() => expect(getByText(ERROR_WEN_EMAIL_INVALID)));
+    });
+
+    it('should show an error if the form is submitted with a password less than 8 characters', async () => {
+      const { getByPlaceholderText, getByText } = render(
+        <AuthForm onSubmit={mockOnSubmit} />
+      );
+
+      const emailInput = getByPlaceholderText(PLACEHOLDER_EMAIL);
+      const passwordInput = getByPlaceholderText(PLACEHOLDER_PASSWORD);
+      const submitButton = getByText(SUBMIT_BUTTON);
+
+      fireEvent.change(emailInput, { target: { value: VALID_EMAIL } });
+      fireEvent.change(passwordInput, { target: { value: INVALID_PASSWORD } });
+      fireEvent.click(submitButton);
+
+      await waitFor(() => expect(getByText(ERROR_WEN_PASSWORD_INVALID)));
+    });
+  });
 });

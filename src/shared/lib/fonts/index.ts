@@ -10,4 +10,5 @@ export const FontsStyle = createGlobalStyle`
     font-family: "San Francisco Bold";
     src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
       }
+      
 `;

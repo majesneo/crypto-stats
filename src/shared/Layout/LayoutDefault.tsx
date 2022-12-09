@@ -1,17 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, Ref } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useStickyHeader } from '../../shared/lib/hooks/useSticky';
+import { useSticky } from '../../shared/lib/hooks/useSticky';
+
 import { Menu } from '../../widgets/models/Menu/Menu';
 
 export const LayoutDefault: FC = () => {
-  const { refHeader, refAfterHeader } = useStickyHeader<
-    HTMLDivElement,
-    HTMLDivElement
-  >();
+  const { isSticky, headerRef } = useSticky<HTMLDivElement>();
   return (
     <>
-      <Menu ref={refHeader} />
-      <div ref={refAfterHeader}>
+      <div style={{ height: '10px' }} />
+      <Menu isSticky={isSticky} ref={headerRef as Ref<HTMLDivElement>} />
+      <div>
         <Outlet />
       </div>
     </>

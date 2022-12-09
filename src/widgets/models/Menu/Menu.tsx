@@ -1,14 +1,18 @@
-import React, { forwardRef, ForwardRefExoticComponent, Ref } from 'react';
+import { forwardRef, ForwardRefExoticComponent, Ref } from 'react';
+import React from 'react';
 import { resetError } from '../../../entities/user/model/actions';
 import { Login } from '../../../features/Authentication/thunk';
 import { AuthForm } from '../../../features/Authentication/ui/AuthForm/AuthForm';
+import { STATUS } from '../../../shared/constants/constants';
 import {
+  RootState,
   useAppDispatch,
   useAppSelector,
 } from '../../../shared/lib/store/store';
 import { Button } from '../../../shared/ui/components/button/Button';
 import { CloseIcon } from '../../../shared/ui/components/Icons/CloseIcon/Index';
 import { NavItem } from '../../../shared/ui/components/NavLink/NavItem';
+import { Spinner } from '../../../shared/ui/components/Spinner/Spinner';
 import {
   COLORS,
   JUSTIFY_ALIGN_MAP,
@@ -28,11 +32,15 @@ export interface MenuItemsContainerProps {
   flex?: boolean;
 }
 
-export const Menu: ForwardRefExoticComponent<{ ref: Ref<HTMLDivElement> }> =
-  forwardRef((props, ref) => {
-    const { error } = useAppSelector((state) => state.user);
-    const dispatch = useAppDispatch();
+export interface MenuI {
+  isSticky?: boolean;
+  ref: Ref<HTMLDivElement>;
+}
 
+export const Menu: ForwardRefExoticComponent<MenuI> = forwardRef(
+  (props, ref) => {
+    const { loading, error } = useAppSelector((state: RootState) => state.user);
+    const dispatch = useAppDispatch();
     const login = ({
       email,
       password,
@@ -47,7 +55,7 @@ export const Menu: ForwardRefExoticComponent<{ ref: Ref<HTMLDivElement> }> =
 
     return (
       <>
-        <MenuContainer ref={ref}>
+        <MenuContainer isSticky={props.isSticky} ref={ref}>
           <FlexContainer justify='CENTER' space='NONE' flex align='CENTER'>
             <div>LOGO</div>
             <MenuItemsContainer space='LG' justify='CENTER' align='CENTER'>
@@ -55,7 +63,7 @@ export const Menu: ForwardRefExoticComponent<{ ref: Ref<HTMLDivElement> }> =
               <NavItem to={'/category'}>Category</NavItem>
             </MenuItemsContainer>
             <FlexContainer space='MD' align='CENTER' justify='END'>
-              <Modal>
+              <Modal autoOpen={Boolean(error)}>
                 <ModalBackground>
                   {(props) => (
                     <StyledModalBackground
@@ -79,6 +87,9 @@ export const Menu: ForwardRefExoticComponent<{ ref: Ref<HTMLDivElement> }> =
                     )}
                   </ModalCloseButton>
                   <h2 style={{ textAlign: 'center' }}>Login</h2>
+                  {loading === STATUS.LOADING && (
+                    <Spinner isFullContent={true} />
+                  )}
                   <AuthForm error={error} onSubmit={login} />
                 </ModalContents>
                 <ModalOpenButton>
@@ -97,4 +108,5 @@ export const Menu: ForwardRefExoticComponent<{ ref: Ref<HTMLDivElement> }> =
         </MenuContainer>
       </>
     );
-  });
+  }
+);

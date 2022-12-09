@@ -27,6 +27,7 @@ export interface MenuItemsContainerProps {
 
 export const MenuAuthorized: ForwardRefExoticComponent<{
   ref: Ref<HTMLDivElement>;
+  isSticky: boolean;
 }> = forwardRef((props, ref) => {
   const { essence: cartProduct } = useAppSelector((state) => state.cart);
   const { essence: user } = useAppSelector((state) => state.user);
@@ -51,7 +52,7 @@ export const MenuAuthorized: ForwardRefExoticComponent<{
   return (
     <>
       {user && (
-        <MenuContainer ref={ref}>
+        <MenuContainer isSticky={props.isSticky} ref={ref}>
           <FlexContainer justify='CENTER' space='NONE' flex align='CENTER'>
             <div>LOGO</div>
             <MenuItemsContainer space='LG' justify='CENTER' align='CENTER'>

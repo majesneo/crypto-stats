@@ -15,7 +15,7 @@ import { COLORS } from '../../../../shared/ui/constants/style';
 import { StyledForm } from './style';
 export interface AuthFormI {
   onSubmit: ({ email, password }: { email: string; password: string }) => void;
-  error: string;
+  error?: string;
 }
 
 const validationSchema = Yup.object({
@@ -31,8 +31,8 @@ interface Values {
 export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
   function onSubmitForm(values: Values, submitProps: FormikHelpers<Values>) {
     submitProps.setSubmitting(false);
-    submitProps.resetForm();
     props.onSubmit(values);
+    submitProps.resetForm();
   }
 
   return (
@@ -44,21 +44,21 @@ export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
       {(formik: FormikProps<Values>) => {
         return (
           <>
-            <Error value={Boolean(props.error)}>
-              <h1>{props.error}</h1>
-            </Error>
+            <Error error={props.error} value={Boolean(props.error)} />
             <StyledForm onSubmit={(e) => e.preventDefault()}>
               <FastField name='email' type='email'>
                 {({ field, meta }: FieldProps) => {
                   return (
                     <Field>
                       <Field.Label>
-                        <Error
-                          label={'Email'}
-                          value={Boolean(meta.error && meta.touched)}
-                        >
-                          {meta.error}
-                        </Error>
+                        {meta.error && meta.touched ? (
+                          <Error
+                            error={meta.error}
+                            value={Boolean(meta.error && meta.touched)}
+                          />
+                        ) : (
+                          'Email'
+                        )}
                       </Field.Label>
                       <Field.Input
                         placeholder='Email'
@@ -74,12 +74,14 @@ export const AuthForm: FC<AuthFormI> = ({ ...props }) => {
                   return (
                     <Field>
                       <Field.Label>
-                        <Error
-                          label={'Password'}
-                          value={Boolean(meta.error && meta.touched)}
-                        >
-                          {meta.error}
-                        </Error>
+                        {meta.error && meta.touched ? (
+                          <Error
+                            error={meta.error}
+                            value={Boolean(meta.error && meta.touched)}
+                          />
+                        ) : (
+                          'Password'
+                        )}
                       </Field.Label>
                       <Field.Input
                         placeholder='Password'

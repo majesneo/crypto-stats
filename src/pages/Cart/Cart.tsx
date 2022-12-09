@@ -20,12 +20,12 @@ export const Cart: FC = () => {
   return (
     <Container>
       <CartProductTable>
-        <ColumnName></ColumnName>
-        <ColumnName></ColumnName>
+        <ColumnName />
+        <ColumnName />
         <ColumnName>Price</ColumnName>
         <ColumnName>Quantity</ColumnName>
         <ColumnName>Total</ColumnName>
-        <ColumnName></ColumnName>
+        <ColumnName />
         {cartProducts.map((product) => (
           <CartProduct key={product.id} {...product} />
         ))}

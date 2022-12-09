@@ -40,7 +40,7 @@ const CartProduct: FC<ICartProduct> = ({
     <>
       <div>
         <Photo ratio={[0, 0]} width={'100px'}>
-          <img src={images && images[0]} alt="product" />
+          <img src={images && images[0]} alt='product' />
         </Photo>
       </div>
       <div>
@@ -55,9 +55,9 @@ const CartProduct: FC<ICartProduct> = ({
               handleAmount(Number(e.target.value))
             }
             value={Number(amount)}
-            type="number"
-            min="1"
-            max="10"
+            type='number'
+            min='1'
+            max='10'
           />
         </Field>
       </div>
