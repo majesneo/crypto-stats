@@ -5,23 +5,15 @@ import { CartIconCircle, StyledCartIcon } from './style';
 export type CartIconProps = {
   widthIcon?: string;
   heightIcon?: string;
-  activatedAnimation?: boolean;
   children: number | ReactNode;
 };
 
-const CartIcon: FC<CartIconProps> = ({
-  widthIcon,
-  heightIcon,
-  activatedAnimation = false,
-  children,
-}) => {
+const CartIcon: FC<CartIconProps> = ({ children, ...props }) => {
   return (
     <>
-      <StyledCartIcon widthIcon={widthIcon} heightIcon={heightIcon}>
+      <StyledCartIcon {...props}>
         <CartIconSvg />
-        <CartIconCircle activatedAnimation={activatedAnimation}>
-          {children}
-        </CartIconCircle>
+        <CartIconCircle>{children}</CartIconCircle>
       </StyledCartIcon>
     </>
   );

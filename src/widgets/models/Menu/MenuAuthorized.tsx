@@ -47,8 +47,6 @@ export const MenuAuthorized: ForwardRefExoticComponent<{
     }, 500);
   };
 
-  const { activatedAnimation } = useSetAnimationQuantity(quantityProduct);
-
   return (
     <>
       {user && (
@@ -59,11 +57,7 @@ export const MenuAuthorized: ForwardRefExoticComponent<{
               <NavItem to={'/'}>Products</NavItem>
               <NavItem to={'/category'}>Category</NavItem>
               <NavItem to={'/cart'}>
-                <CartIcon
-                  activatedAnimation={activatedAnimation}
-                  widthIcon={'25px'}
-                  heightIcon={'25px'}
-                >
+                <CartIcon widthIcon={'25px'} heightIcon={'25px'}>
                   {quantityProduct}
                 </CartIcon>
               </NavItem>
